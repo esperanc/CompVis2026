@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="800"
+   height="420"
+   viewBox="0 0 800 420"
+   font-family="Helvetica, Arial, sans-serif"
+   version="1.1"
+   id="svg57"
+   sodipodi:docname="relacoes.svg"
+   inkscape:version="1.2 (dc2aeda, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview59"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.5575"
+     inkscape:cx="300.48154"
+     inkscape:cy="217.97753"
+     inkscape:window-width="2079"
+     inkscape:window-height="1205"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg57" />
+  <!-- Definições -->
+  <defs
+     id="defs5">
+    <marker
+       id="arrow"
+       markerWidth="10"
+       markerHeight="10"
+       refX="9"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M0,0 L10,5 L0,10 Z"
+         fill="#444"
+         id="path2" />
+    </marker>
+  </defs>
+  <rect
+     style="fill:#f0f0f0;fill-rule:evenodd;fill-opacity:1"
+     id="rect400"
+     width="808.98877"
+     height="430.81863"
+     x="-4.494381"
+     y="-5.1364365" />
+  <!-- Estilo geral -->
+  <style
+     id="style7">
+    .box {
+      fill: #f8f8f8;
+      stroke: #444;
+      stroke-width: 1.5;
+      rx: 8;
+      ry: 8;
+    }
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+      fill: #222;
+      text-anchor: middle;
+    }
+    .desc {
+      font-size: 13px;
+      fill: #444;
+      text-anchor: middle;
+    }
+    .arrow {
+      stroke: #444;
+      stroke-width: 1.5;
+      fill: none;
+      marker-end: url(#arrow);
+    }
+    .label {
+      font-size: 12px;
+      fill: #333;
+      text-anchor: middle;
+    }
+  </style>
+  <!-- Bloco: Modelos -->
+  <rect
+     x="32.547165"
+     y="164.4054"
+     width="169.36528"
+     height="87.978935"
+     class="box"
+     id="rect9" />
+  <text
+     x="119.48963"
+     y="199.05896"
+     class="title"
+     id="text11"
+     transform="scale(0.98108769,1.0192769)"
+     style="stroke-width:1.07894">Modelos</text>
+  <text
+     x="119.48963"
+     y="220.63771"
+     class="desc"
+     id="text13"
+     transform="scale(0.98108769,1.0192769)"
+     style="stroke-width:1.07894">(formas, cenas, objetos)</text>
+  <!-- Bloco: Computação Gráfica -->
+  <rect
+     x="286.59509"
+     y="21.439621"
+     width="254.04791"
+     height="98.976303"
+     class="box"
+     id="rect15" />
+  <text
+     x="421.59232"
+     y="58.796986"
+     class="title"
+     id="text17"
+     transform="scale(0.98108769,1.0192769)"
+     style="stroke-width:1.07894">Computação Gráfica</text>
+  <text
+     x="421.59232"
+     y="85.770439"
+     class="desc"
+     id="text19"
+     transform="scale(0.98108769,1.0192769)"
+     style="stroke-width:1.07894">Modelos → Imagens</text>
+  <!-- Bloco: Processamento de Imagens -->
+  <rect
+     x="286.59509"
+     y="158.90672"
+     width="254.04791"
+     height="98.976303"
+     class="box"
+     id="rect21" />
+  <text
+     x="421.59232"
+     y="193.66426"
+     class="title"
+     id="text23"
+     transform="scale(0.98108769,1.0192769)"
+     style="stroke-width:1.07894">Processamento de Imagens</text>
+  <text
+     x="421.59232"
+     y="220.63771"
+     class="desc"
+     id="text25"
+     transform="scale(0.98108769,1.0192769)"
+     style="stroke-width:1.07894">Imagens → Imagens</text>
+  <!-- Bloco: Visão Computacional -->
+  <rect
+     x="286.59509"
+     y="296.37378"
+     width="254.04791"
+     height="98.976303"
+     class="box"
+     id="rect27" />
+  <text
+     x="421.59232"
+     y="328.53152"
+     class="title"
+     id="text29"
+     transform="scale(0.98108769,1.0192769)"
+     style="stroke-width:1.07894">Visão Computacional</text>
+  <text
+     x="421.59232"
+     y="355.50497"
+     class="desc"
+     id="text31"
+     transform="scale(0.98108769,1.0192769)"
+     style="stroke-width:1.07894">Imagens → Modelos</text>
+  <!-- Bloco: Imagens -->
+  <rect
+     x="604.15497"
+     y="164.4054"
+     width="169.36528"
+     height="87.978935"
+     class="box"
+     id="rect33" />
+  <text
+     x="702.11627"
+     y="199.05896"
+     class="title"
+     id="text35"
+     transform="scale(0.98108769,1.0192769)"
+     style="stroke-width:1.07894">Imagens</text>
+  <text
+     x="702.11627"
+     y="220.63771"
+     class="desc"
+     id="text37"
+     transform="scale(0.98108769,1.0192769)"
+     style="stroke-width:1.07894">(pixels, fotos, frames)</text>
+  <!-- Setas -->
+  <!-- Modelos -> CG -->
+  <line
+     x1="201.91245"
+     y1="180.90146"
+     x2="286.59509"
+     y2="92.922508"
+     class="arrow"
+     id="line39" />
+  <text
+     x="238.17282"
+     y="112.7439"
+     class="label"
+     id="text41"
+     transform="scale(0.98108769,1.0192769)"
+     style="stroke-width:1.07894">entrada</text>
+  <!-- CG -> Imagens -->
+  <line
+     x1="540.64301"
+     y1="92.922508"
+     x2="604.15497"
+     y2="180.90146"
+     class="arrow"
+     id="line43" />
+  <text
+     x="615.29895"
+     y="117.59306"
+     class="label"
+     id="text45"
+     transform="scale(0.98108769,1.0192769)"
+     style="stroke-width:1.07894">renderização</text>
+  <!-- Imagens -> Proc. Imagens -->
+  <line
+     x1="604.15497"
+     y1="208.39487"
+     x2="540.64301"
+     y2="208.39487"
+     class="arrow"
+     id="line47" />
+  <!-- Proc. Imagens -> Imagens -->
+  <line
+     x1="540.64301"
+     y1="235.88829"
+     x2="604.15497"
+     y2="235.88829"
+     class="arrow"
+     id="line49" />
+  <!-- Imagens -> Visão Computacional -->
+  <line
+     x1="604.15497"
+     y1="263.38171"
+     x2="540.64301"
+     y2="340.36325"
+     class="arrow"
+     id="line51" />
+  <!-- Visão Computacional -> Modelos -->
+  <line
+     x1="286.59509"
+     y1="340.36325"
+     x2="201.91245"
+     y2="235.88829"
+     class="arrow"
+     id="line53" />
+  <text
+     x="235.40189"
+     y="307.64551"
+     class="label"
+     id="text55"
+     transform="scale(0.98108769,1.0192769)"
+     style="stroke-width:1.07894">extração</text>
+</svg>
