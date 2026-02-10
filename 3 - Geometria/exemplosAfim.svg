@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xhtml="http://www.w3.org/1999/xhtml"
+     width="900" height="700"
+     viewBox="0 0 900 700">
+
+  <!-- Fundo branco -->
+  <rect x="0" y="0" width="900" height="700" fill="white"/>
+
+  <defs>
+    <style>
+      .line   { stroke: #000; stroke-width: 2; fill: none }
+      .dashed { stroke-dasharray: 6,6 }
+      .point  { fill: #000 }
+      math {
+        font-family: "Times New Roman", Georgia, serif;
+        font-size: 26px;
+      }
+      .small math { font-size: 22px; }
+    </style>
+  </defs>
+
+  <!-- ================================================= -->
+  <!-- 1. R = P + 2/3 (Q − P)                            -->
+  <!-- ================================================= -->
+  <g>
+    <line class="line dashed" x1="120" y1="220" x2="360" y2="160"/>
+
+    <circle class="point" cx="120" cy="220" r="4"/>
+    <circle class="point" cx="360" cy="160" r="4"/>
+    <circle class="point" cx="280" cy="180" r="4"/>
+
+    <!-- Equação -->
+    <foreignObject x="140" y="285" width="420" height="70">
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+        <mi>R</mi><mo>=</mo>
+        <mi>P</mi><mo>+</mo>
+        <mfrac><mn>2</mn><mn>3</mn></mfrac>
+        <mo>(</mo><mi>Q</mi><mo>−</mo><mi>P</mi><mo>)</mo>
+      </math>
+    </foreignObject>
+  </g>
+
+  <!-- ================================================= -->
+  <!-- 2. R = 1/3 P + 2/3 Q                              -->
+  <!-- ================================================= -->
+  <g transform="translate(450,0)">
+    <line class="line dashed" x1="120" y1="230" x2="360" y2="170"/>
+
+    <circle class="point" cx="120" cy="230" r="4"/>
+    <circle class="point" cx="360" cy="170" r="4"/>
+    <circle class="point" cx="280" cy="190" r="4"/>
+
+    <foreignObject x="120" y="295" width="420" height="70">
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+        <mi>R</mi><mo>=</mo>
+        <mfrac><mn>1</mn><mn>3</mn></mfrac><mi>P</mi>
+        <mo>+</mo>
+        <mfrac><mn>2</mn><mn>3</mn></mfrac><mi>Q</mi>
+      </math>
+    </foreignObject>
+  </g>
+
+  <!-- ================================================= -->
+  <!-- 3. R = (1 − α)P + αQ                              -->
+  <!-- ================================================= -->
+  <g transform="translate(0,350)">
+    <!-- Reta definida exatamente por P e Q -->
+    <line class="line dashed" x1="90" y1="237" x2="370" y2="156"/>
+
+    <!-- Pontos colineares -->
+    <circle class="point" cx="120" cy="228" r="4"/>
+    <circle class="point" cx="160" cy="215" r="4"/>
+    <circle class="point" cx="235" cy="195" r="4"/>
+    <circle class="point" cx="310" cy="175" r="4"/>
+    <circle class="point" cx="350" cy="162" r="4"/>
+
+    <!-- Rótulos α -->
+    <foreignObject x="80" y="255" width="160" height="60" class="small">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <mi>α</mi><mo>&lt;</mo><mn>0</mn>
+      </math>
+    </foreignObject>
+
+    <foreignObject x="205" y="215" width="220" height="60" class="small">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <mn>0</mn><mo>&lt;</mo><mi>α</mi><mo>&lt;</mo><mn>1</mn>
+      </math>
+    </foreignObject>
+
+    <foreignObject x="330" y="135" width="160" height="60" class="small">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <mi>α</mi><mo>&gt;</mo><mn>1</mn>
+      </math>
+    </foreignObject>
+
+    <!-- Equação principal -->
+    <foreignObject x="120" y="315" width="420" height="70">
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+        <mi>R</mi><mo>=</mo>
+        <mo>(</mo><mn>1</mn><mo>−</mo><mi>α</mi><mo>)</mo><mi>P</mi>
+        <mo>+</mo><mi>α</mi><mi>Q</mi>
+      </math>
+    </foreignObject>
+  </g>
+
+  <!-- ================================================= -->
+  <!-- 4. Combinação afim no triângulo                   -->
+  <!-- ================================================= -->
+  <g transform="translate(450,350)">
+    <polygon points="140,240 320,210 230,110" class="line"/>
+
+    <circle class="point" cx="140" cy="240" r="4"/>
+    <circle class="point" cx="320" cy="210" r="4"/>
+    <circle class="point" cx="230" cy="110" r="4"/>
+
+    <circle class="point" cx="230" cy="185" r="4"/>
+    <circle class="point" cx="255" cy="220" r="4"/>
+
+    <foreignObject x="110" y="290" width="420" height="90">
+      <math xmlns="http://www.w3.org/1998/Math/MathML" display="block">
+        <mi>R</mi><mo>=</mo>
+        <munderover>
+          <mo>∑</mo>
+          <mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow>
+          <mn>3</mn>
+        </munderover>
+        <msub><mi>α</mi><mi>i</mi></msub>
+        <msub><mi>P</mi><mi>i</mi></msub>
+      </math>
+    </foreignObject>
+
+    <foreignObject x="245" y="155" width="300" height="60" class="small">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <mn>0</mn><mo>&lt;</mo><mi>α</mi><mi>i</mi><mo>&lt;</mo><mn>1</mn>
+      </math>
+    </foreignObject>
+
+    <foreignObject x="255" y="245" width="360" height="60" class="small">
+      <math xmlns="http://www.w3.org/1998/Math/MathML">
+        <mi>α</mi><mi>1</mi><mo>=</mo><mn>0</mn><mo>,</mo>
+        <mn>0</mn><mo>&lt;</mo><mi>α</mi><mi>2</mi><mo>,</mo><mi>α</mi><mi>3</mi><mo>&lt;</mo><mn>1</mn>
+      </math>
+    </foreignObject>
+  </g>
+
+</svg>
