@@ -197,3 +197,38 @@ Propriedades:
 ::img src="./prodvetorial.png" width="80%"
 :::
 ---
+# Operador de orientação
+
+:::col
+Dados dois pontos $A$ e $B$ em 2D, como determinar de que lado da reta $AB$ está um ponto $C$?
+ - Como nomear o que é um lado ou outro?
+
+Dados três pontos $A, B, C$ em 3D, como determinar se um ponto $D$ está acima ou abaixo do plano que passa por $A$, $B$ e $C$?
+ - Como saber o que é acima e abaixo?
+
+Para tanto precisamos do _operador de orientação_
+:::
+:::col
+::img src="./Orientacao.svg" width="90%"
+:::
+---
+# O operador de orientação
+
+É o sinal do determinante da matriz formada pelos pontos em coordenadas homogêneas, porém com o $1$ na primeira linha.
+
+ - Em 3D: $o(A,B,C,D) = \textrm{sign} \left(\left| \begin{array}{cccc} 1 & 1 & 1 & 1\\ x_A & x_B & x_C & x_D\\ y_A & y_B & y_C & y_D\\ z_A & z_B & z_C & z_D \end{array} \right|\right)$
+
+ - Em 2D: $o(A,B,C) = \textrm{sign} \left(\left| \begin{array}{ccc} 1 & 1 & 1\\ x_A & x_B & x_C\\ y_A & y_B & y_C \end{array} \right|\right)$
+---
+# Operador de orientação
+_Significado_: posição do último ponto com relação ao _simplex_ formado pelos pontos anteriores
+- positivo : do lado "positivo" (regra da mão direita)
+- negativo: do lado "negativo"
+- zero: coplanar / colinear 
+---
+:::center
+# Obrigado!
+:::
+
+
+ 
