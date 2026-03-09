@@ -47,7 +47,7 @@ O uso de computação para gerar, analisar e processar dados visuais.
 através do disparo de raios
 :::
 :::col
-:: image src="appel_raycasting.jpg"
+:: image src="appel_raycasting.png" width="80%"
 :::
 ---
 # 1971/1973 - Sombreamento (Gouraud e Phong)
@@ -80,7 +80,7 @@ através do disparo de raios
 # 1982 - Tron e Star Trek II
 ::: col
 - **Tron**: Uso pioneiro de CGI extensivo em cinema.
-:: image src="tron-1982.jpg"
+:: image src="tron-1982.jpg" width="80%"
 :::
 ::: col
 - **Star Trek II**: Efeito Genesis -primeira cena 100% gerada por computador.
