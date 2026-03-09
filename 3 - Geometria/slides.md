@@ -124,7 +124,7 @@ Um conjunto de vetores é linearmente independente se nenhum deles pode ser expr
 :: img src="base.svg" width="80%"
 :::
 ---
-# Sistema de coordenadas
+# Sistemas de coordenadas
 :::col
 Para gerar um espaço afim (pontos e vetores), além de uma base precisamos postular um ponto especial $O$ chamado origem
 
@@ -135,6 +135,10 @@ Os escalares $\alpha_i$ são as coordenadas do ponto ou vetor
 :::col
 :: img src="sistema_coordenadas.svg" width="80%"
 :::
+---
+# Exemplo
+
+[Demo Sistema de coordenadas](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F3+-+Geometria%2FCoordinate+System.zip)
 ---
 # Coordenadas homogêneas
 Uniformiza a representação de pontos e vetores
@@ -159,16 +163,79 @@ Por isso,
 - Escalar * Vetor → Vetor
 - Ponto + Ponto → Operação sem sentido
 ---
-# Sistemas de coordenadas usando matrizes
+# Pontos e vetores como matrizes
+- Por convenção, pontos e vetores são representados 
+por matrizes coluna.
 
-:::col
-- Os vetores do S.C. e a origem são escritos como matrizes coluna. Ex:
+- Por exemplo, os vetores do S.C. e a origem de um sistema de coordenadas 2D:
 $$
 \vec u_1 = \left[ \begin{array}{c} u_{1x} \\ u_{1y} \\ 0 \end{array} \right], \quad \vec u_2 = \left[ \begin{array}{c} u_{2x} \\ u_{2y} \\ 0 \end{array} \right], \quad O = \left[ \begin{array}{c} O_x \\ O_y \\ 1 \end{array} \right]
 $$
-- Pode-se usar uma única matriz onde as $d$ primeiras colunas são vetores do S.C. e a última coluna é a origem.
-$$
-M = \left[ \begin{array}{ccc} \vec u_1 & \vec u_2 & \cdots & \vec u_d & O \end{array} \right]
-$$
+---
+# Sistema de coordenadas como matrizes
+- Pode-se usar uma única matriz onde as $d$ primeiras colunas são vetores do S.C. e a última coluna é a origem. Em 2D:
 
+$$
+M = \left[ \begin{array}{ccc} 
+\begin{array}{c} u_{1x} \\ u_{1y} \\ 0 \end{array} & 
+\begin{array}{c} u_{2x} \\ u_{2y} \\ 0 \end{array} &
+\begin{array}{c} O_x \\ O_y \\ 1 \end{array} 
+\end{array} \right]
+$$
+---
+# Mudança de sistemas de coordenadas
+
+Seja um ponto $P$ com coordenadas $P_A = [x\; y\; 1]^T$ 
+- Isto significa que $x$ e $y$ são suas coordenadas num dado sistema de coordenadas $A$
+
+Seja um outro sistema de coordenadas $B$
+- $B$ é definido no sistema de coordenadas $A$ por $B_A$
+- As colunas de $B_A$ são vetores / origem do S.C. $B$ expressos no S.C. $A$
+
+Seja $P_B$ as coordenadas do ponto no sistema de coordenadas $B$, então
+
+$$
+B_A P_B = P_A \quad \text{ou} \quad P_B =  B_A^{-1} P_A \quad \text{ou} \quad P_B =  A_B P_A
+$$
+---
+::: col
+:: image src="coordsystem.png" width="80%"
+:::
+::: col
+$$
+B_A = \left[ \begin{array}{ccc} 
+\begin{array}{c} -2 \\ 0 \\ 0 \end{array} & 
+\begin{array}{c} 0 \\ -1 \\ 0 \end{array} &
+\begin{array}{c} 6 \\ 6 \\ 1 \end{array} 
+\end{array} \right]
+\\\;\\
+P_A = \left[ \begin{array}{c} 2 \\ 1 \\ 1 \end{array} \right]
+\\\;\\
+\vec v_A = \left[ \begin{array}{c} 1 \\ 1 \\ 0 \end{array} \right]
+$$
+:::
+---
+::: col
+:: image src="coordsystem_2.png" width="80%"
+:::
+::: col
+$$
+A_B = \left[ \begin{array}{ccc} 
+\begin{array}{c} -0.5 \\ 0 \\ 0 \end{array} & 
+\begin{array}{c} 0 \\ -1 \\ 0 \end{array} &
+\begin{array}{c} 3 \\ 6 \\ 1 \end{array} 
+\end{array} \right]
+\\\;\\ 
+P_B = \left[ \begin{array}{c} 2 \\ 5 \\ 1 \end{array} \right] = A_B 
+\left[ \begin{array}{c} 2 \\ 1 \\ 1 \end{array} \right]
+\\\;\\
+\vec v_B = \left[ \begin{array}{c} -0.5 \\ -1 \\ 0 \end{array} \right] = 
+A_B 
+\left[ \begin{array}{c} 1 \\ 1 \\ 0 \end{array} \right]
+
+$$
+:::
+---
+:::center
+# Obrigado!
 :::

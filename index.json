@@ -1,14 +1,26 @@
-[
-    {
-        "folder": "1 - Introdução",
-        "title": "Introdução"
-    },
-    {
-        "folder": "2 - Desenhando por números",
-        "title": "Desenhando por números"
-    },
-    {
-        "folder": "3 - Geometria",
-        "title": "Geometria"
-    }
-]
+{
+    "title": "Computação Visual 2026",
+    "subtitle": "Apresentações disponíveis:",
+    "presentations": [
+        {
+            "folder": "1 - Introdução",
+            "title": "Introdução"
+        },
+        {
+            "folder": "2 - Desenhando por números",
+            "title": "Desenhando por números"
+        },
+        {
+            "folder": "3 - Geometria",
+            "title": "Geometria"
+        },
+        {
+            "folder": "4 - Transformações",
+            "title": "Transformações"
+        },
+        {
+            "folder": "5 - Gráficos 3D",
+            "title": "Gráficos 3D"
+        }
+    ]
+}
