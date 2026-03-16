@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     viewBox="0 0 800 600" width="800" height="600">
+  <metadata>
+    <hopedraw:project xmlns:hopedraw="https://hopedraw.app/ns">
+      {"version":1,"name":"test","savedAt":"2026-03-16T18:23:50.694Z","pageWidth":800,"pageHeight":600,"pageBgColor":"#ffffff","defaultProps":{"base":{"fill":"#4a9eff","stroke":"#1a1a2e","strokeWidth":2,"opacity":1},"ellipse":{"stroke":"none","fill":"#767676"},"formula":{"textColor":"#000000","fontSize":30},"line":{"strokeDash":"dashed","arrowEnd":"none"},"rect":{"fill":"none","strokeDash":"dashed"},"parallelogram":{"fill":"rgba(151, 150, 150, 0.15)","skewAngle":27,"strokeDash":"dashed"},"text":{"textColor":"#000000","fontSize":26},"arc":{"fill":"#FFFFFF"},"path":{"fill":"none"}},"layers":[{"id":"layer-1773671396915-1","name":"Layer 1","visible":true,"locked":false,"shapeIds":["shape-1773685307388-0"]}],"shapes":[{"id":"shape-1773685307388-0","type":"text","layerId":"layer-1773671396915-1","x":280.3125,"y":183.38436889648438,"width":145.484375,"height":129.32504272460938,"rotation":0,"fill":"#4a9eff","stroke":"#1a1a2e","strokeWidth":2,"opacity":1,"strokeDash":"solid","content":"Xpto&lt;div&gt;xpto&lt;/div&gt;&lt;div&gt;xpto&lt;/div&gt;","fontFamily":"Inter, sans-serif","fontSize":26,"fontWeight":"normal","fontStyle":"normal","textDecoration":"none","textColor":"#000000","textAlign":"left","bgFill":"transparent","borderColor":"transparent"}]}
+    </hopedraw:project>
+  </metadata>
+  <rect x="0" y="0" width="800" height="600" fill="#ffffff"/>
+  <g xmlns="http://www.w3.org/2000/svg" id="shapes-layer"><g data-id="shape-1773685307388-0" data-type="text" transform="rotate(0,353.0546875,248.04689025878906)" style="cursor: move; opacity: 1; pointer-events: all;"><foreignObject x="280.3125" y="183.38436889648438" width="145.484375" height="129.32504272460938" style="pointer-events: none;"><div xmlns="http://www.w3.org/1999/xhtml" class="text-shape-content" contenteditable="false" style="font-family: Inter, sans-serif; font-size: 26px; font-weight: normal; font-style: normal; text-decoration: none; color: rgb(0, 0, 0); text-align: left; background: transparent; border: none; width: 100%; height: 100%; box-sizing: border-box; padding: 6px 8px; word-break: break-word; white-space: pre-wrap; outline: none; overflow: auto; user-select: none; cursor: default;">Xpto<div>xpto</div><div>xpto</div></div></foreignObject></g></g>
+</svg>
