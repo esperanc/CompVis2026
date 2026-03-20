@@ -233,35 +233,16 @@ my_shader.setUniform("t", 0.1)
 # Exemplo
 :: img src="uniform.png" height = 80%
 [link](https://esperanc.github.io/Py5Script/view.html?zip=KoUQzgIgQggg9jRSQBcCMATAYgDwFoDKALAK4BKA0jCIgMIDmsiAUkjAMYBMKANhgOIA5OABkAdlACsefgDUAtgEkAElACeeAOo4AbgE1NARTgUAKicW0Y9RfwxgARp2YALB7SgoAprICcALwBDfiwAazwADUUKS2tbNEkIgGZhAzIedgBLGF9bXTTTYLDIxThabJsrSrixPAyxQxI8Thx-d0Uwcriq2Jt5PDUDdiaWttpFAAcGCfDNPXouWQAGDAj4MwseoQ1NLCW8YEE3Wpd2NXpOAFkIGDBFCD0Ad0vaR-pl2VoyJcep+hmtPM8MpXBhzhMAPL0ODVeh6eRYABWgU4YIcSVkTQYakuiJgUwqligJAcaEES3Y8l8ACdCP8upUoEEQuEonAHBEeAAzLguFwyWRqCjGWEc7m8-lyNTiQR8LCYwKaPA6SlLegUWjMJaKTJvPBiVwOTSyCDozEYWgADhwL1CMS2skc-B4jy4wHVNzAL0eS2ut0EN0ewomhgIzxADDYiAIGKWEWYvkyEDUzGAMEMiFk1CQoSQUE4kS1Ink9i4OFd8lkyIiggmTiI9GCPDEgWU1jw8nyEUMAHZpi4MMoyGpFcxMPx3RhK4jLmooC5gPwAoEImQ65wiH2xAqlSr5GqjXtBB40KZNL5ZjhNIrZEkz3tKTwiBDfmgHPIePJ0cwUPEBxBDHoDBZHUJwJh4PQkjXJxJEEPRVxHCJ6D7f43w-L8kh-Ww8EcTg9hUXtpk4JweFCP9FSIEwCCgPsKinKtj3zG873PS9DHRWsBB4HQHGyXJlFkQQnHSBwsDwCZIgwOCEJXeh1UyfMtEuJYKBCdiUgmLieN1ehLmIINTDAe0mONFiLy0HB1M451tMkIhLDAXIIBAR4RDxeSmQouALRgakVHEyShM4ESsCgFVOB4JZFV8EhxFCeSYFcxEQEhR4YVsewIjQMKuEi6KSHuNVgNAzhwMg6DOFg+Dh1kjzOGYs9zO0KzNJshxETAGx8V8UBIFgBAo1QTBcFkS0IREWgHDYfhHjYVgkH1VwBkkMQHGUQQwHYEEIIioJzwK-gXAkzgXEebDcL2F8TCnXwJI8FADB4EgNXirw0psZQ6j0fxALFU0WhVPj-Ign64D0ohXKsJLbnuGASG9XT9LMIyiVWrBfH4SksAaThfEcJJFHoAAFajvEOHilzUF8Jh68BYBcDNIyjGNlgiLAeBETJJBABAMxgKgaEQXMoxF0WkHW2lV2RWhJEeHwoBEdNFDTeARaG7A1C5eZLUyLNBawQwmBgeaxdFkBLSYRT4yWYtSxaUNHgjLBECoKMFdWMh2FkLkIF1eRZsQKAwDYWg+dNqMICoehEEW-k1BWtaNt60Lo7YG4YEufEw72dO2AAXjzoA)
-
 ---
-# Usando Geometry
+# Uniforms do tipo vec2, vec3, vec4
 
-Na renderização usando primitivas como `rect()`, `circle()`, `box()`, etc, os vértices são gerados e enviados para a GPU a cada chamada.
+Para passar valores para uniforms desses tipos, pode-se usar arrays do tamanho adequado.
 
-Isto pode se tornar um gargalo quando muitas primitivas precisam ser renderizadas a cada quadro.
+Para quem usa _Py5Script_ é necessário converter listas em arrays javascript usando o utilitário `js_array()`.
 
-Uma alternativa interessante é usar Objetos da classe `p5.Geometry`.
+Exemplo:
+```python
+my_shader.setUniform("v", js_array([1.0, 2.0, 3.0]))
+```
+---
 
-- `p5.Sphere()`
-- `p5.Box()`
-- `p5.Cylinder()`
-- `p5.Cone()`
-- `p5.Torus()`
-- `p5.Plane()`
-- `p5.TorusKnot()`
-- `p5.Icosahedron()`
-- `p5.Octahedron()`
-- `p5.Dodecahedron()`
-- `p5.Tetrahedron()`
-- `p5.Pyramid()`
-- `p5.Cylinder()`
-- `p5.Cone()`
-- `p5.Torus()`
-- `p5.Plane()`
-- `p5.TorusKnot()`
-- `p5.Icosahedron()`
-- `p5.Octahedron()`
-- `p5.Dodecahedron()`
-- `p5.Tetrahedron()`
-- `p5.Pyramid()

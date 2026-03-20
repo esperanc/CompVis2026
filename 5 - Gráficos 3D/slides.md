@@ -104,6 +104,93 @@ def draw():
 ::img src="./3dsimples.png" width="80%"
 :::
 ---
+# Usando Geometry
+
+Na renderização usando primitivas como `box()`, `sphere()` etc, os vértices são gerados e enviados para a GPU a cada chamada.
+
+Isto pode se tornar um gargalo quando muitas primitivas precisam ser renderizadas a cada quadro.
+
+Uma alternativa interessante é usar Objetos da classe `p5.Geometry`.
+
+Um objeto `p5.Geometry` armazena os vértices e outros dados em buffers na memória da GPU.
+
+Para desenhar um objeto `p5.Geometry` usa-se a função `model(my_geometry)` do objeto.
+---
+# Criando objetos `p5.Geometry`
+
+Use `beginGeometry()` para indicar que você vai criar uma geometria.
+
+Todas as primitivas desenhadas em seguida são armazenadas em
+um objeto `p5.Geometry`.
+
+`endGeometry()` retorna o objeto `p5.Geometry`.
+
+Uma vez que o objeto não é necessário, use `freeGeometry()` para liberar a memória da GPU.
+---
+# Exemplo
+:::col
+```python
+def setup():
+    createCanvas(800,800, WEBGL)
+    
+    beginGeometry()
+    sphere(200)
+    geom = endGeometry()
+    
+    background(200)
+    translate (-200,0,0)
+    model(geom)
+    translate (400,0,0)
+    model(geom)
+    
+    freeGeometry(geom)
+```
+:::
+:::col
+:: img src="Geometry.png" width=80%
+[link](https://esperanc.github.io/Py5Script/view.html?code=CYUwZgBAziAuCuAHAFASgFwCgI4gYwCcQBDWEAYWIDsA3YqZADgAZmAaF9iAdQFEAhAOIAZVNlzicAIxABzAJZVBIAPYBbOAQCeaSdEQALEEWQAmVmNwRZqtRAC8EEFWDL1mnZYlWpxPAGtZAhV4FzMLPVgCaigAG1IQCGQAWnN2dNQAbgg1FVBY5Bt1LxwomPiyJIAWVjYM7Jy8kAKitRKIPTAiEDcNKJ1WsSA)
+:::
+---
+# `lights()` e  `orbitControl()`
+
+Em 3D, é útil usar um modelo de iluminação para ter algum realismo.
+- `lights()` liga um modelo de iluminação padrão
+- `noLights()` desliga o modelo de iluminação
+
+Uma função bastante útil para interagir com objetos 3D é a `orbitControl()`.
+
+Ela permite que o usuário orbite em torno do objeto usando o mouse.
+
+Chame `orbitControl()` em `draw()` para habilitar a interação.
+---
+# Exemplo
+:::col
+```python
+def setup():
+    createCanvas(800, 800, WEBGL)
+    global geom
+    beginGeometry()
+    for i in range(100):
+        push()
+        p = [p5.random(-200,200) for i in (0,1,2)]
+        translate(*p)
+        sphere(40)
+        pop()
+    geom = endGeometry()
+
+def draw():
+    background(100)
+    orbitControl()
+    lights()
+    noStroke()
+    model(geom)
+```
+:::
+:::col
+::img src="orbit_light.png" width="80%"
+[link](https://esperanc.github.io/Py5Script/view.html?code=E4QwdgJgBAvFAKBWAdKSB7AtgKGxApgGZQDO+ALgK4AOAFAJQBc2UrUAxsPiOfgMLgAbiBK0AHAAYJAGiiSZUAOoBRAEIBxADL0WbAOYAbdACMQBqHvxZdrY-j0BLMOquYKwAJ4MbUQumBQDoFgUGiWtACMUkw+bFDUlCQAFt5xcdSwUADaaBC0ALQATFLSxRL0vv6BwVC0MhGl9AC6sWzkaCQGPPi0AFTUOmlsJNRJ+Fy0ACzlrazU6HSD+q6Z+JAuWO5eOnhEUBCgAO4MzHGm7ADWesDolJCR0T7+xg7kfOhg7egGqWwGDnokuRREtWGB0ABlL4XHqgqCYdAEH6WLA6IA)
+:::
+---
 # Transformações em 3D
 
 Em 3D, as transformações são representadas por matrizes 4x4.
