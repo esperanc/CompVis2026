@@ -313,6 +313,25 @@ _Significado_: posição do último ponto com relação ao _simplex_ formado pel
 - negativo: do lado "negativo"
 - zero: coplanar / colinear 
 ---
+# O tipo `p5.Vector`
+
+Criado com a função `createVector(x,y,z)`
+
+Suporta um grande repertório de métodos para manipulação de vetores, ex.:
+- `copy()`: cria uma cópia do vetor atual
+- `add(v)`: soma o vetor `v` ao vetor atual
+- `sub(v)`: subtrai o vetor `v` do vetor atual
+- `mult(s)`: multiplica o vetor atual pelo escalar `s`
+- `div(s)`: divide o vetor atual pelo escalar `s`
+- `mag()`: retorna o comprimento do vetor
+- `normalize()`: normaliza o vetor
+- `cross(v)`: retorna o produto vetorial do vetor atual com o vetor `v`
+- `dot(v)`: retorna o produto escalar do vetor atual com o vetor `v`
+- `dist(p)`: retorna a distância entre o ponto atual e o ponto `p`
+- `heading()`: retorna o ângulo do vetor em relação ao eixo x
+- `rotate(ang)`: rotaciona o vetor em relação ao eixo z
+
+---
 :::center
 # Obrigado!
 :::
