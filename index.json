@@ -29,6 +29,10 @@
         {
             "folder": "7 - Shaders",
             "title": "Introdução aos shaders"
+        },
+        {
+            "folder": "8 - Iluminação",
+            "title": "Iluminação"
         }
     ]
 }
