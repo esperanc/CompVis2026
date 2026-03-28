@@ -268,3 +268,11 @@ Onde
 - `angle` é a abertura do cone de luz em radianos
 - `concentration` é o quão suave é a queda da luz nas bordas do cone (o "falloff")
 ---
+::: center
+# Demo Iluminação
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https://esperanc.github.io/CompVis2026/8%20-%20Ilumina%C3%A7%C3%A3o/ilumination_demo.zip)
+:::
+---
+::: center
+# Obrigado!
+:::
