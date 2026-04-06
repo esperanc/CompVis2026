@@ -158,6 +158,38 @@
 ::img src=raio_transformado.svg width=85%
 :::
 ---
+# Normais de objetos transformados
+- A normal $\vec n'$ do objeto transformado por $T$ _não_ é dada por $T \vec n$
+    - Na verdade, $ \vec n' = (T^{-1})^T \vec n $
+::img src=normal_transformada.svg width=70%
+---
+# Prova
+- Queremos que $\vec n'$ seja perpendicular a qualquer vetor $\vec v'$ sobre o plano tangente à superfície:
+  - $ \vec n' \cdot \vec v' = 0 $
+
+- Sabemos que $\vec v' = T \vec v$. Então
+    - $\vec n' \cdot (T \vec v) = 0$, ou $(\vec n' \cdot T)  \vec v = 0$
+- Lembrando que $A \cdot B = A^\top B$, então
+    - $(\vec n'^\top T) \vec v = 0$
+- Como $T = T^{\top\top}$, temos $(\vec n'^\top T^{\top\top}) = (T^\top \vec n')^\top$
+- Então,
+    - $(T^\top \vec n')^\top \vec v = 0$, ou $(T^\top \vec n') \cdot \vec v = 0$
+    - Ou seja, $T^\top \vec n'$ é perpendicular a todo $\vec v$, a definição de vetor normal!
+    - Então $T^\top \vec n' = \vec n$, ou $\vec n' = (T^\top)^{-1} \vec n = (T^{-1})^\top \vec n$
+---
+# Constructive Solid Geometry (CSG)
+- Esquema de modelagem que usa operações de conjunto sobre primitivas: União, Intersecção e Diferença
+- Permite também transformações afim sobre primitivas ou sub-árvores
+- Visualização com ray-tracing:
+  - Interseção com primitivas guardando _todas_ as interseções
+  - Ordena-se as interseções por distância (valor de $t$)
+  - Combina-se os intervalos de interseção conforme a operação
+---
+:::center
+::img src=intersecao_csg.svg width=90%
+:::
+
+---
 # Estruturas de indexação espacial
 - Usadas para acelerar o processo de interseção
     - Uma malha pode ter milhares de triângulos. 
@@ -191,3 +223,7 @@
 # _Bounding Volume Hierarchies_
 - Conjugam estruturas de indexação e volumes envolventes
 :: img src=bvh.png width=70%
+---
+:::center
+# Obrigado
+:::
