@@ -47,8 +47,8 @@ vec3 rayDirection(vec2 fragCoord) {
 }
 ```
 ---
-:::col
-# Exemplo
+:::col ratio=70%
+# Ray marching básico
 ```glsl
 float rayMarch (vec3 dir) {
   float depth = 0.;
@@ -61,9 +61,11 @@ float rayMarch (vec3 dir) {
   return MAX_DIST;
 }
 ```
-::: 
-:::col
-::iframe src="https://esperanc.github.io/Py5Script/view.html?zip=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&name=raymarching_simples"
+:::
+:::col ratio=30%
+::img src=raymarching_simples.png height=70%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_simples.zip)
+:::
 ---
 # Normais
 - Precisamos de normais para o modelo de iluminação
@@ -82,7 +84,7 @@ f(x,y,z)-f(x,y,z-\epsilon)
 $$
 onde $\epsilon$ é um valor pequeno.
 ---
-:::col
+:::col ratio=70%
 # Exemplo
 ```glsl
 vec3 normal(vec3 p) {
@@ -103,8 +105,53 @@ void main () {
 }
 ```
 ::: 
-:::col
-::iframe src="https://esperanc.github.io/Py5Script/view.html?zip=KoUQzgIgQggg9jRSoGEDSBLAYgTwFIBaA1ALbBwDuIiaAsrInkjAMYBMALgDYAmA4gDk4AGQB2UAKwE+ANRIBJABJQcBAOoAPAG4BNNQEU4aACpH5KGAHN5fHmABGbPAAt7KKBwCmMgJwAvAEM+LABrAgANeTRzKxsARglwgGYhPQAlLhYMGB8bbXTjINCI+TgUbOsLStjRAkzRDM8sfyKwyIBXAjYNPzd5MHLYqpjrEgIcPR4AM3ZnZ2kZHGESO3YKDDRDNAWFRQFeRRkKNBQQgDZByqgAKxYSGWd+GQg9CTYdcNo4AWuYCmELGxaBAYGB5FgeFh9CEeLRNkYdjY0hNwiwjKZosM+C4dJxRHcfHF7CRDLRrvJjoZqpZiT5jDxFHgtAE2OR4dTZvNZDg0HwEslUmoMlkQpjYsoQvIIAAGSwsPhcAAs6g0IHUEkC4TSEhOopG8USKTg6UyGA1ETSMmJXBI9iSeA4JzwAAdgPdet04vwuFp7Bh+vJ4NSRgFRAIph88CiQnA1EkeM6CIo0kZxCFhHxnFwAmoeHAeChnRQCFhpc6TGAxdY+YbBcKzX4LVaSDa7Q6nc6ZAqOAQAMoBvnO+x8DTOlg4SzO4R+EAUYEwZ0AeQocA5I9cZHzbC4ML4ljAQRkibYzmlm2d+l7c5AKEszEQIHkAEd5OEBE+KAAFHT2IjMAD0d6IFAgbAWwER4NKETODMJ5cosyyrN0FB3DI1wBG+Q5sIqlhBFwogBIoVgECQ+ThPoADst7Oo8yY4DmeBenwwCWDw9zXLQOBQM4wB8C0WpYYqVGiDI7Q5gQWh3LK9hqKWAjuHExhqD4YSaGoOYyEkSmlncSrLs6RItra9ocPEjwQPorEyCojjOlwOhJGkWESAIHzIhhlhUZObCODuZk5oqRi9lAVEVGxaHyVAbAaVpymqRo+h2gIzrer62S5IcAiOBk9hYAQibhDwrlavR4SWJYmBReotBnsEiUpClCppRQli0L2irHMYlbmFAoi5T49XJalfo5EoMj6AST7qAI0o5j47TadKumKuYq5sVwvDSnEWgLGAvH8U5jhCTEaBTNZwh-PoaD3og+gYHAzgsAEARnOGID6FgwEgFA+gPswfDjJMsFzAsSwrGA7AaCh7EYclR24QqBFEZYJFkZR1GGa2JlKHUOh+PIuEyHgmRsD4YA8AJR3CaJ4mSSQsqo7o5GE4dajAF5zrXI4GoFlAQ6iJZxjAFgHxbVAwAhAI8i9sAEiKOEcQCMAlpQMYUqymSwBxPpXNsDz7i2nxjzuAI+gPFMaQgFwxgyBYuQQLOtAoB1Ovc34vOGz4xtQFgwsCHgxggD4i7q61ztziCGjLkYuLzSwSSWYzHyJy2XDDmkn51PlEQsJYn7BRMQrOq8fhoBZcTCL8S44DAWjCFxagQbNagCK47jXHocSZCQICWK8fXMWgsftPHlnhRxXFcJ4bN58F4FqLQpcgu0TstU7HUAjAbCVwui413XXGDY1Pp+lAO0YFAs3MSj4QbdRnve348pZqhxiWzo+bsZxUB+J3FDDuNXy7QCwhEsJ4FcHJ7jSgpngdoeQ04rFmigZwv81BxH-rIRK25gGnEsMIXsMANA72EmeFAYwHBsFLEoH46ouDAGlGkPgaBFC4z8LQOUlCODyg0HQvi-N9DOiUN1YYjIDiLFPk-TM3cZBvxAB-dgWAuEjl4T4fhS4KDOh8NReei8bASDpnENuzgdH4yIoIxQwjYgAwoVQvgll84-1xKJAgMgBAgDSBgZwnVLHWBYfZfGKMCEZVYaUdeYJl7AhAOo1cIxULQPCLAvRBjXAKjOH2Yx1VS52KnFSfUwx8lDEKb41hXx2D7GJDI9+cAWAoC7mIJUnhTgDAqHkoprTgz5McWwZxrj3GeP+GzdonhFBKjQFeKs7TJkFODHsa4tD6GMOYTAHsvYJCKmGSEcsvYQgkJOOQxwVDGTOE8FrR6JAhDmAyQvfGfAnIijARAmwBAbHSiRJkZMcBQ7r1CsREgPgcCXP4bhIJUoYAURsKAz8JszYwSFlgXs+hpTOADjCKYWs0i+ywLQcFfAQgACc0A4FAeAmJVQk7M2kFwd2dtqFzLUBIOhDCmGyCkAQvFbyWAfNWijBUPIuoTIVAoZBIRYavIgC1FWxgZYaE-MYDAoC4kwLgbc95KZo7UgWBQfg5U0B+AZgqd2EAfE2BtJctol8AgWCIA4025tLbW1tgqqBSr5AgDiFAWSPgQC9lccAdVSgzw9VUFqOIdwcJwtFmkPAWt0aiFIbUfx7C7hYAkIwrgqgW7N3mswkJKNRAuAINKAQvp7SimCj81iX8L7rJBQDQuPAICOH+QQCwpkFS9giMW+whws3tDEM4CQ5gAAcrUMAu0edYg5rzFCrgca6d0jgNBMRPmaQdKAR38CwO0Xk2dNAhGMPPGKw7R0dQrJiFQFpQ0kBwrSHAMksAHnCHZHNia4AbLBLUs4YydkoDjScWozIDA0lkkODAOqBEVvHt-EVkRZ4qA+FwEAGFiYOUOthOAXQNAW3zfMItJa8DplEAOs9PUH68xgzNUOyaJDaQmGwSwGHeUkYNsOL2vM4AYXscFd2shji3LHAnMEbqPXNG9b68wspJXStlfKyDX8uLtDbKZGUNI-l3tkpWFlfYOAUbPCQO5snLiYewwWvDrGAUqfHvJZwHHyJPj0HgLJ+ipJTgsEQqu+kfCgDALAZwv1bw3UfC+SI+E0m9l+L9eAVAkAhBunF+LMA9h4otOhFAEgKDeCgBdfQ8hgCIAQPeVAmAsCBEgGwPggEkCfkVMwAhCW4tfAYFVBJUFwgwU5KDRCENuiXioCgT6MBro3Tug9J6L03ofS+j9P69WboQBq0BAgOGCBxBaMENo8hOjdF6FgLLP0dA3QoDAEEwg8vASfBYe8ABeIAA&name=raymarching_normal"
+:::col ratio=30%
+::img src="raymarching_normal.png" height=70%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_normal.zip)
+:::
+--- 
+:::col ratio=70%
+# Iluminação
+```glsl
+const vec3 lightPos = vec3(10);  // Light position
+const vec3 lightColor = vec3 (1); // Light color
+const vec3 matColor = vec3 (1,0,0); // material Color
+const float matDiff = 0.8; // Diffuse coefficient
+const float matAmb = 0.3; // Ambient coefficient
+const float matSpec = 0.8; // Specular coefficient
+const float matShine = 20.0; // Shininess power
+
+vec3 lighting (vec3 p) {
+    vec3 n = normal(p);
+    vec3 l = normalize(lightPos - p);
+    vec3 e = normalize(eye - p);
+    vec3 ia = matAmb * lightColor * matColor;
+    vec3 id = matDiff * max(0.,dot(l, n)) * lightColor * matColor;
+    vec3 r = reflect(-l,n);
+    vec3 is = matSpec * pow(max(0., dot(e,r)),matShine) * lightColor;
+    return ia+id+is;
+}
+```
+:::
+::: col ratio=30%
+:: img src=raymarching_light.png height=70%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_light.zip)
+:::
+---
+:::col ratio=70%
+# Operações de conjunto (booleanas)
+- SDFs também podem ser combinadas usando operações de conjunto (booleanas)
+| Op booleana | SDF equivalente |
+| --- | --- |
+| $A \cup B$ | $\min(A,B)$ |
+| $A \cap B$ | $\max(A,B)$ |
+| $A \setminus B$ | $\max(A,-B)$ |
+| $B \setminus A$ | $\max(-A,B)$ |
+:::
+::: col ratio=30%
+:: img src=raymarching_boolean.png height=70%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_boolean.zip)
+:::
 ---
 # Veja também
 - [Ray Marching and making 3D Worlds with math](https://youtu.be/BNZtUB7yhX4)
