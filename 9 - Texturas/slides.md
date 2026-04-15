@@ -250,6 +250,56 @@ shaders, principalmente no esquema "fragment shader only"
 :::col
 :: iframe src="https://esperanc.github.io/Py5Script/view.html?zip=KoUQzgIgQggg9jRSCSBqAlgcwDYHcBuAtgAyYCaAagIrKIBiwAwkgFJIwDGATAC7YAmAcQBycADIA7KAFZGhAErYAWuii4OhCmABGXOgGsA0o30A2RuhiZkjKBO2CAnOjIB1XJm0ANbADNuABYBSoIUAJ4WVjZQPACmFI4AXgCGggZKXsiYAAoAylA6evrAXEEh4TaY6PyaYfyM0vYAEsJgyOgeyIRKYW4cAK5KXAAeidqMyAAOkda29k4u7pjJrgCMEgCyuR4r6xuYcLNWu5u5MI7IgsP4bvIs2q50Ekq5VclN8sQcTRumYmGOXArYSJfiuYj9DiCAL4IRJMRcbD6MSJEDEFHIVbCdBTGbRSYPDhhZAQUgORzBEDYHhufjYYwsOD8D7qRJwfBiADMUEmZE5wlW2ly0iBTmI2k5G3wKyo+A2ABUOHKAFYldpGGxRZhHHVyRQqKCJDLyVYcRiYSYAeQOOr5LGwZC8iioen6NToiUMEEwuA2jA8logMFwYlsTuALCa8pMxgUylU+g0dE5xjMeNsi2EACclJyWLDXNIjEHppZZmolMwLk0ebFQmB5KFIYjiLFXqWtTF4klUulMs2KMQKIXJkpCI4wkK3hR7dxHGB+E6CVwACzoUNQACOHFWFI4EhYATbAW0-ER+iEmG3gioYFSFFHpWIhik+i8uX0Vtwh01nh8-lKYJQjCSRhAEOgKH6FYlHwDRiDgLpsGAXZsHaDwHmwHRBGwT0TDleVgz9fQAHZ0y7BIUjSfQMmQAchxHMcJynapQhXLZkDabCeCUVEO3LOIKN7aj+24Qdh2kUdx0nV4WIoNicU46keNxMtokovtkDgbw-ECIDwkMKgf21bRx3lZl82SLhgDgAyjKsKFhhPQhrMDYMxG9X0Y1ASBYAQdgYDQLA8FiKBGH5fBcCQMQAA52DYJAanCepGm0Fo2k5JRsH3YRlxXTANkSYNLgoRI5GwfpkCaTKyESfZKCgWCWxWRx+ktXBJkFQhsEICUWB4S5VgCfgICoTB+AoKBJy4SYHU5eRl2kYRHXkMJki8TBSIkSDoNgkhPEeYhhFsVZ5VcRxqNcYZXBWChOVOugvi6lc2psmpHFHWwaVccrU0wWJv2sQR+DALxVga7hsGIZqKtJMaJqmma+Xm3RFuW1b1swQxVBOs6Lqum67oOjRsBXGxDkS5UjqCYAnBSJddBXNoIBAfoiM21YqG2DYQHNfyYGVUxjC8MQbIgAB6S1iBgKhEB4GAQCQfQkCgQgkwkMRCGB7hcGVRKwgh-BtEsWqg0wDINmMKQwiUVwcoNo2oDgFZ+DgM0VfJIaIDAQwJUHSrqsSUalAPYJDsNpwwjajqTO63r+qqh1EiyZIZyyrh50XZHV027bXBguCzcIa5HVGlPkdcYAc6gvPdtIbg6B4BysuVFgQEqxRYmZqudoL+vG6uZvW-b7BO+QUiLS4XQkQGgIVhXGz8lI1TbC4G2NmJFpiBJUghmGXx5BDpQw965EJACaQEWwXIMmEQ2mkHaHJHPl6dQpo6oGVLZzmH2IPlNZymSsS2MMVerh16GE3pIDYYAtgrkbpyKgboTBfjsmNTQlNbCf0sNWDuf8NDWSEHJDY6AQFrzCBA4Q6JNgwNyHAjgCCkGfhfr+McxcvCjTcMMUUIAcj5FVoQOgutGABEmBQLiLxoronQPoTcxCVxL07KOSwcBOHcNQLAyYlw6BgChEEbe+V0BwNUakEACjyz8KeC6ecEosh5CsDVHhWMoAnhrCos4WZohYJgJuSowwxDoEGqlR2ZAPybWfN5WAAQZa838gLIWjBUBCmcRQKwiBqC0EQErPm2ScktBzE6ZUyQGi4HiFAMQ0tkDAEQH5dggUcAlNCuFSKiAYpxRye0pouBmAwCgKvLwLB0Sax0SMTmuAeZ0EQIYPmjBshwDgCwAYBxsjRWIlQWAMBGBSxlhs7Z7T-JQEsM04Oh4egpTSt5OgUBMD+SDDADYMBJi7NJBM-yABeV5QA&name=tex_shader"
 ---
+:::col
+# Coordenadas de textura no shader
+- O atributo `aTexCoord` já é passado para formas 3D comuns como sphere, cube, etc
+ - Vertex shader tem que passar como varying para o 
+   fragment shader
+```glsl
+attribute vec2 aTexCoord;
+varying vec2 vTexCoord;
+void main() {
+  ...
+  // Pass along texture coordinates
+  vTexCoord = aTexCoord;
+  ...
+}
+```
+:::
+:::col
+:: img src=textured_globe.png height=70%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F9+-+Texturas%2Ftextured_globe.zip)
+:::
+---
+# Outros usos para texturas
+- Nem sempre texturas carregam informação de cor.
+  - Podem carregar informação de altura (bump maps)
+  - Podem carregar informação de normal (normal maps)
+  - Podem carregar informação de especularidade (specular maps)
+---
+# Bump maps e normal maps
+- Permitem simular relevos na superfície sem aumentar a complexidade geométrica
+- O relevo só fica aparente sob iluminação
+  - A geometria continua suave
+- Bump maps são mais comuns pois são mais fáceis de gerar
+- Normal maps são mais eficientes pois não precisam de cálculo de gradiente
+---
+# Bump maps
+- Textura contém informação de altura 
+  - Tipicamente uma imagem em preto e branco 
+  - Preto = baixo, Branco = alto
+- Para inferir uma perturbação da normal em um ponto, precisamos comparar a altura do ponto com a altura dos seus vizinhos. 
+ - Se $h(x,y)$ é a altura do terreno no texel $x,y$
+ $$
+ \delta \vec n =  \left[ \frac{\partial h}{\partial x}, \frac{\partial h}{\partial y}, 1 \right]^\top \approx \left[ h(x+1,y)-h(x,y), h(x,y+1)-h(x,y), 1 \right]^\top
+ $$
+---
+# Sistema de coordenadas do bump map
+- Para "colar" a textura num ponto da superfície é preciso mapear o sistema de coordenadas da textura para o sistema de coordenadas do objeto
+  - "Para cima" da textura $\leftrightarrow$ direção normal da superfície
+- A normal dá o eixo "z" do sistema de coordenadas do bump map
+
+---
 :::center
 # Obrigado!
 :::

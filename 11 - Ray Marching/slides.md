@@ -153,6 +153,70 @@ vec3 lighting (vec3 p) {
 [link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_boolean.zip)
 :::
 ---
+# Interação com arcball
+
+- Infelizmente não podemos mais usar o orbitControl() do p5! 
+- Precisamos implementar a rotação da câmera e o zoom manualmente
+  - a constante `eye` pode ser passada como um `uniform`
+- Um manipulador intuitivo para rotação pode ser implementado usando o conceito do **arcball**
+  - Imagina-se que existe uma grande esfera no centro da tela que pode ser girada por clique e arraste
+  - A rotação é calculada projetando-se os pontos de início e fim do arrasto na superfície da esfera
+  - O eixo de rotação é o produto vetorial dos vetores que vão do centro da esfera aos pontos de início e fim
+  - O ângulo de rotação é o ângulo entre os vetores que vão do centro da esfera aos pontos de início e fim
+---
+# Arcball
+::img src=arcball.svg height=90%
+---
+# Cálculo da rotação
+```python
+def get_rotation (a, b):
+    """ Returns the rotation axis and angle that rotates a into b  """
+    a = a.copy().normalize()
+    b = b.copy().normalize()
+    axis = a.cross(b)
+    if axis.mag() < 1e-6:
+        return createVector(0, 1, 0), 0.0   # no rotation
+    return axis.normalize(), abs(a.angleBetween(b))
+```
+---
+# Coordenadas de olho x coordenadas de tela
+
+- A rotação é calculada em coordenadas de tela mas tem que ser aplicada em coordenadas de mundo
+  - $x_E, y_E, z_E$ expressos em coordenadas de mundo
+  - Precisamos montar esse sistema de forma semelhante ao feito no shader
+```python
+def get_camera_axes(eye_dir):
+    """Returns the right and up vectors of the camera 
+    in world space."""
+    world_up = createVector(0, 1, 0)
+
+    right = world_up.copy().cross(eye_dir).normalize()  
+    up    = eye_dir.copy().cross(right).normalize()   
+    
+    return right, up
+```
+---
+# Rotação de um vetor em torno de um eixo
+- Lembram?
+```python
+def rot_around_axis (v, u, ang):
+    """ Returns v rotated by ang around axis u """
+    # Rodrigues formula
+    # Term 1: v * cos(ang)
+    term1 = p5.Vector.mult(v, cos(ang))
+    
+    # Term 2: (u x v) * sin(ang)
+    crossProd = p5.Vector.cross(u, v)
+    term2 = p5.Vector.mult(crossProd, sin(ang))
+    
+    # Term 3: u * (u . v) * (1 - cos(ang))
+    dotProd = p5.Vector.dot(u, v)
+    term3 = p5.Vector.mult(u, dotProd * (1 - cos(ang)))
+    
+    # Combine all terms
+    return term1.add(term2).add(term3)
+```
+---
 # Veja também
 - [Ray Marching and making 3D Worlds with math](https://youtu.be/BNZtUB7yhX4)
 - [Ray Marching for dummies](https://youtu.be/PGtv-dBi2wE)
