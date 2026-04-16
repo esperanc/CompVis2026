@@ -376,6 +376,11 @@ vec3 grad = T * dhx + B * dhy;
 vec3 bumpedNormal = normalize(N - grad * bumpScale);
 ```
 ---
+:::row
+::img src=bumpmap.png width=40%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https://esperanc.github.io/CompVis2026/9%20-%20Texturas/bumpmap.zip)
+:::
+---
 :::center
 # Obrigado!
 :::
