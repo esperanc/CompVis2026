@@ -268,7 +268,7 @@ void main() {
 :::
 :::col
 :: img src=textured_globe.png height=70%
-[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F9+-+Texturas%2Ftextured_globe.zip)
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https://esperanc.github.io/CompVis2026/9%20-%20Texturas/textured_globe.zip)
 :::
 ---
 # Outros usos para texturas
@@ -285,20 +285,96 @@ void main() {
 - Normal maps são mais eficientes pois não precisam de cálculo de gradiente
 ---
 # Bump maps
+:::col
 - Textura contém informação de altura 
   - Tipicamente uma imagem em preto e branco 
   - Preto = baixo, Branco = alto
-- Para inferir uma perturbação da normal em um ponto, precisamos comparar a altura do ponto com a altura dos seus vizinhos. 
- - Se $h(x,y)$ é a altura do terreno no texel $x,y$
+- Para inferir uma perturbação da normal em um ponto, precisamos comparar a altura do ponto com a altura dos seus vizinhos, ou seja, o gradiente de $h$
+ - Se $h(u,v)$ é a altura do terreno no texel $u,v$
  $$
- \delta \vec n =  \left[ \frac{\partial h}{\partial x}, \frac{\partial h}{\partial y}, 1 \right]^\top \approx \left[ h(x+1,y)-h(x,y), h(x,y+1)-h(x,y), 1 \right]^\top
+ \Delta h =  \left( \frac{\partial h}{\partial u}, \frac{\partial h}{\partial v} \right)
  $$
+ :::
+ :::col
+ ::img src=bump_gradient.svg
+ :::
 ---
-# Sistema de coordenadas do bump map
+# Sistemas de coordenadas do bump map
+:::col
 - Para "colar" a textura num ponto da superfície é preciso mapear o sistema de coordenadas da textura para o sistema de coordenadas do objeto
   - "Para cima" da textura $\leftrightarrow$ direção normal da superfície
-- A normal dá o eixo "z" do sistema de coordenadas do bump map
-
+  - Os outros vetores da base devem estar alinhados com as direções de $u$ e $v$ da textura. Se $P$ é um ponto da superfície, então
+$$
+  T =\frac{\partial P}{\partial u},\,
+  B =\frac{\partial P}{\partial v}
+$$
+ - São os chamados vetores _tangente_ e _bitangente_
+:::
+:::col
+::img src=bump_frame.svg
+:::
+---
+# Derivadas no shader
+:::row
+- As funções $dFdx(p)$ e $dFdy(p)$ calculam as derivadas parciais de $p$ em relação a $x$ e $y$ no espaço de tela
+- Usando a regra da cadeia, podemos calcular os vetores tangente e bitangente no espaço do objeto
+:::
+:::col
+Para o gradiente de altura $h(u,v)$:
+$$
+\begin{array}{c}
+\large
+\frac{\partial h}{\partial x} = \frac{\partial h}{\partial u} \frac{\partial u}{\partial x} + \frac{\partial h}{\partial v} \frac{\partial v}{\partial x}
+\\ 
+\\
+\frac{\partial h}{\partial y} = \frac{\partial h}{\partial u} \frac{\partial u}{\partial y} + \frac{\partial h}{\partial v} \frac{\partial v}{\partial y}
+\end{array}
+$$
+(Queremos isolar $\frac{\partial h}{\partial u}$ e $\frac{\partial h}{\partial v}$)
+:::
+:::col
+Para a tangente e bitangente:
+$$
+\large
+\begin{array}{c}
+\frac{\partial P}{\partial x} = T \frac{\partial u}{\partial x} + B \frac{\partial v}{\partial x}
+\\
+\\
+\frac{\partial P}{\partial y} = T \frac{\partial u}{\partial y} + B \frac{\partial v}{\partial y}
+\end{array}
+$$
+:::
+---
+# Calculando $T$ e $B$
+- Primeiro obtemos dois vetores tangentes quaisquer
+```glsl
+vec3 dp1 = dFdx(gl_FragCoord.xyz);
+vec3 dp2 = dFdy(gl_FragCoord.xyz);
+vec3 dp2perp = cross(dp2, N);
+vec3 dp1perp = cross(N, dp1);
+```
+- Obtemos as derivadas de tela das coordenadas de textura
+```glsl
+vec2 duv1 = dFdx(vTexCoord);
+vec2 duv2 = dFdy(vTexCoord);
+```
+- Agora podemos isolar $T$ e $B$
+```glsl
+vec3 T = normalize(dp2perp * duv1.x + dp1perp * duv1.y);
+vec3 B = normalize(dp2perp * duv2.x + dp1perp * duv2.y);
+```
+---
+# Calculando a normal perturbada
+- Coeficientes do gradiente da altura
+```glsl
+float dhx = dFdx(h);
+float dhy = dFdy(h);
+```
+- Aplicando o gradiente da altura em coordenadas de objeto
+```glsl
+vec3 grad = T * dhx + B * dhy;
+vec3 bumpedNormal = normalize(N - grad * bumpScale);
+```
 ---
 :::center
 # Obrigado!
