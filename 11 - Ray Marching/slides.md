@@ -67,6 +67,30 @@ float rayMarch (vec3 dir) {
 [link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_simples.zip)
 :::
 ---
+# Movendo a câmera
+:::col ratio=70%
+- Podemos usar o mouse para mover a câmera
+- Assumindo que `iMouse` contém a posição do mouse em coordenadas de tela
+```glsl
+mat2 rot2d (float angle) {
+    float c = cos(angle), s=sin(angle);
+    return mat2(c, -s, s, c);
+}
+vec3 getEye () {
+    vec2 m = iMouse.xy/iResolution.xy*2.-1.; // range [-1,1]
+    vec3 eye = defEye;
+    eye.yz *= rot2d(-m.y*3.1416/2.);
+    eye.xz *= rot2d(m.x*3.1416);
+    return eye;
+}
+```
+:::
+:::col ratio=30%
+::img src=raymarching_mouse.png height=70%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_mouse.zip)
+:::
+:::
+---
 # Normais
 - Precisamos de normais para o modelo de iluminação
 - Como vimos, a normal de uma função implícita $f(x,y,z)$ é dada por
@@ -153,6 +177,220 @@ vec3 lighting (vec3 p) {
 [link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_boolean.zip)
 :::
 ---
+# Suavização / expansão
+:::col ratio=70%
+- Uma SDF pode ser suavizada simplesmente subtraindo um valor $r$ de seus valores
+```glsl
+float smooth(float sdf, float r) { return sdf - r; }
+```
+:::
+:::col ratio=30%
+:: img src=raymarching_smooth.png height=70%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_smooth.zip)
+:::
+---
+# Operações booleanas suavizadas
+:::col ratio=70%
+- É possível obter versões suavizadas das operações booleanas usando uma função min/max _suavizada_
+- Há diversas possibilidades, exploradas [neste artigo](https://iquilezles.org/articles/smin/) de Inigo Quilez
+- Uma implementação bastante usada é a versão quadrática
+```glsl
+float smin( float a, float b, float k )
+{
+    k *= 4.0;
+    float h = max( k-abs(a-b), 0.0 )/k;
+    return min(a,b) - h*h*k*(1.0/4.0);
+}
+```
+:::
+:::col ratio=30%
+:: img src=raymarching_smooth_min.png height=70%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_smooth_min.zip)
+:::
+---
+# Transformações
+- Aplicar uma transformação a uma SDF envolve aplicar a inversa da transformação ao ponto antes de avaliá-la.
+- Para rotações, a rotação inversa de $\theta$ usa-se o mesmo eixo mas um ângulo $-\theta$.
+- Para transladar $v$ a distãncia $||v||$ é preservada. A translação inversa é a translação pelo vetor $-v$.
+- Para uma escala **uniforme** por $s$, precisamos tomar cuidado, pois as relações de distância são alteradas. 
+ - Aplicamos $s$ à distância avaliada, para efetivar a escala
+```glsl
+float opScale( in vec3 p, in float s )
+{
+    return primitive(p/s)*s;
+}
+```
+---
+# Espelhamento
+:::col ratio=60%
+- Podemos obter uma cópia espelhada de um objeto simplesmente espelhando o ponto de amostra com relação a um plano
+
+```glsl
+vec3 opSymX (vec3 p) {
+    p.x = abs(p.x);
+    return p;
+}
+
+vec3 opSymY (vec3 p) {
+    p.y = abs(p.y);
+    return p;
+}
+```
+:::
+:::col ratio=40%
+::img src=raymarching_mirror.png height=70%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_mirror.zip)
+:::
+---
+# Repetição
+:::col ratio=60%
+- Cópias podem ser obtidas subdividindo o espaço para obter os sistemas de coordenadas locais de cada cópia
+- Por exemplo, para obter repetições numa grade de células de tamanho `s`: 
+```glsl
+vec3 opRepeat (vec3 p, float s) {
+    return p - s*round(p/s);
+}
+```
+- É possível também limitar o número de repetições. Para ter entre $2n+1$ repetições ao redor da origem, fazemos: 
+```glsl
+vec3 opLimRepeat (vec3 p, float s, vec3 n) {
+    return p - s*clamp(round(p/s),-n,n);
+}
+```
+- Importante: assume que os objetos repetidos são simétricos com relação aos planos coordenados.
+  - Ver [este artigo](https://iquilezles.org/articles/sdfrepetition/) para uma discussão mais aprofundada.
+:::
+:::col ratio=40%
+::img src=raymarching_repeat.png height=70%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_repeat.zip)
+:::
+---
+# Usando materiais
+:::col ratio=60%
+- Para poder distinguir entre os objetos da cena, criamos uma função semelhante à da SDF, mas que retorna o material ao invés da distância
+```glsl
+vec3 sceneMat (vec3 p) {
+    float ball = sphereSDF(p-vec3(-1.,0,0),0.8);
+    float block = blockSDF(p-vec3(1.,0,0), vec3(0.8));
+    float d = min(ball,block);
+    if (d == ball) return vec3(1,1,0);
+    return vec3(0,1,1);
+}
+```
+:::
+:::col ratio=40%
+::img src=raymarching_material.png height=70%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_material.zip)
+:::
+---
+# Cubemaps
+:::col
+- Textura que envolve toda a cena.
+  - Também chamada de _skymap_ ou _skybox_
+- WebGL tem suporte a cubemaps, mas P5.js não
+  - É necessário acessar funções WebGL diretamente para criar cubemaps
+- Precisamos de 6 imagens, uma para cada face de um cubo centrado na origem mas de tamanho em tese infinitamente grande
+  - Imagens quadradas de mesmo tamanho e resolução  
+:::
+:::col
+```python
+urls = [
+  'posx.jpg', 'negx.jpg', 
+  'posy.jpg', 'negy.jpg', 
+  'posz.jpg', 'negz.jpg'
+  ]
+images = [loadImage(url) 
+  for url in urls]
+```
+:::
+---
+# Carregando a textura do cubemap
+```python
+def createCubemap():
+  """ Create cubemap from images """
+  gl = drawingContext; 
+  tex = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_CUBE_MAP, tex)
+  targets = [
+    gl.TEXTURE_CUBE_MAP_POSITIVE_X, gl.TEXTURE_CUBE_MAP_NEGATIVE_X,
+    gl.TEXTURE_CUBE_MAP_POSITIVE_Y, gl.TEXTURE_CUBE_MAP_NEGATIVE_Y,
+    gl.TEXTURE_CUBE_MAP_POSITIVE_Z, gl.TEXTURE_CUBE_MAP_NEGATIVE_Z
+  ]
+  for img,target in zip(cubemapImages,targets):
+      # the actual image element is in img.canvas
+      gl.texImage2D(target, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, 
+          img.canvas)
+  gl.texParameteri(gl.TEXTURE_CUBE_MAP, gl.TEXTURE_MIN_FILTER, gl.LINEAR)
+  return tex
+```
+---
+# Passando a textura para o shader
+```python
+def draw(): 
+  ...
+  # Vincula a textura manualmente ao slot 0
+  gl = drawingContext
+  gl.activeTexture(gl.TEXTURE0)
+  gl.bindTexture(gl.TEXTURE_CUBE_MAP, cubemap)
+  
+  # p5 não entende cubemaps. Uniforme tem que ser
+  # setado manualmente
+  uCubemapLoc = gl.getUniformLocation(my_shader._glProgram, 'uCubemap')
+  gl.uniform1i(uCubemapLoc, 0)
+```
+---
+# Acessando a textura no shader
+:::col ratio=60%
+- Ao invés de coordenadas u,v, usa-se um vetor em 3D!
+```glsl
+uniform samplerCube uCubemap; 
+...
+void main() {
+  vec3 dir = rayDirection(eye, 
+    gl_FragCoord.xy);
+  // cubemap color needs to flip x 
+  // for left-handed coord system
+  vec3 color = textureCube(uCubemap, 
+     dir*vec3(-1,1,1)).rgb; 
+  ...
+}
+```
+:::
+:::col ratio=40%
+::img src=raymarching_cubemap.png height=70%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_cubemap.zip)
+:::
+---
+# Reflexão com cubemap
+:::col ratio=60%
+- Podemos acrescentar reflexão à cena, calculando o raio refletido no ponto de interseção
+```glsl
+  vec3 R = reflect(-e,n);
+  vec3 T = textureCube(uCubemap, 
+    R*vec3(-1,1,1)).rgb; // Flip x
+```
+- A cor do modelo de iluminação pode ser combinada com a cor da textura:
+  - Modulação: `C*T`
+  - Mistura: `C*0.5 + T*0.5`
+:::
+:::col ratio=40%
+::img src=raymarching_cubemap_reflect.png height=70%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_cubemap_reflect.zip)
+:::
+---
+# Reflexão "recursiva"
+:::col ratio=60%
+- Raios refletido podem atingir outros objetos
+- A cor final depende do que o raio refletido "vê"
+- É possível simular múltiplas reflexões
+  - Embora não seja "recursivo", em termos de código, podemos repetir os cálculos
+- Refatoramos of código para que a função `lighting` retorne também a nova origem e direção do raio refletido
+:::
+:::col ratio=40%
+::img src=raymarching_cubemap_r_reflect.png height=70%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_cubemap_r_reflect.zip)
+:::
+---
 # Interação com arcball
 
 - Infelizmente não podemos mais usar o orbitControl() do p5! 
@@ -179,9 +417,9 @@ def get_rotation (a, b):
     return axis.normalize(), abs(a.angleBetween(b))
 ```
 ---
-# Coordenadas de olho x coordenadas de tela
+# Coordenadas de olho $\times$ coordenadas de tela
 
-- A rotação é calculada em coordenadas de tela mas tem que ser aplicada em coordenadas de mundo
+- A rotação é calculada em coordenadas de _tela_ mas tem que ser aplicada em coordenadas de mundo
   - $x_E, y_E, z_E$ expressos em coordenadas de mundo
   - Precisamos montar esse sistema de forma semelhante ao feito no shader
 ```python
@@ -217,6 +455,53 @@ def rot_around_axis (v, u, ang):
     return term1.add(term2).add(term3)
 ```
 ---
+# Obtendo o ponto do arcball
+```python
+def arcball_point():
+    """ Arcball point from mouse point """
+    p = createVector(mouseX, height-mouseY)
+    p.z = max(0, r-p.dist(c))
+    return p
+    
+def mousePressed():
+    """ Save start point for drag """
+    global saved
+    saved = eye_dir, arcball_point()
+```
+--- 
+# Realizando o arraste
+```python
+def mouseDragged():
+    prev_dir, a = saved 
+    b = arcball_point()
+    
+    # Subtract center point
+    a_rel = a.copy().sub(c)
+    b_rel = b.copy().sub(c)
+    
+    # Rotation axis in screen space
+    u_screen, ang = get_rotation(a_rel, b_rel)
+    
+    # Rotation axis in world space
+    x_world, y_world = get_camera_axes(prev_dir)
+    u_world = p5.Vector.mult(x_world,  u_screen.x)
+    u_world.add(p5.Vector.mult(y_world,  u_screen.y))
+    u_world.add(p5.Vector.mult(prev_dir, u_screen.z))
+    u_world.normalize()
+    
+    # Rotate camera in the opposite direction of the object rotation
+    global eye_dir
+    eye_dir = rot_around_axis(prev_dir, u_world, -ang) 
+```
+---
+::img src=raymarching_cubemap_arcball_r_reflect.png width=80%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_cubemap_arcball_r_reflect.zip)
+---
 # Veja também
 - [Ray Marching and making 3D Worlds with math](https://youtu.be/BNZtUB7yhX4)
 - [Ray Marching for dummies](https://youtu.be/PGtv-dBi2wE)
+- [Canal Art of Code](https://www.youtube.com/@TheArtofCodeIsCool)
+---
+:::center
+# Obrigado
+:::
