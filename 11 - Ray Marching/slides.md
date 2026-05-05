@@ -579,7 +579,7 @@ def mouseDragged():
     eye_dir = rot_around_axis(prev_dir, u_world, -ang) 
 ```
 ---
-::img src=raymarching_cubemap_arcball_r_reflect.png width=80%
+::img src=raymarching_cubemap_arcball_r_reflect.png height=80%
 [link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_cubemap_arcball_r_reflect.zip)
 ---
 # Veja também
