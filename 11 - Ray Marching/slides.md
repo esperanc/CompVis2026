@@ -378,17 +378,102 @@ void main() {
 [link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_cubemap_reflect.zip)
 :::
 ---
-# Reflexão "recursiva"
-:::col ratio=60%
+# Reflexão "recursiva" (1)
+:::col ratio=35%
 - Raios refletido podem atingir outros objetos
 - A cor final depende do que o raio refletido "vê"
 - É possível simular múltiplas reflexões
   - Embora não seja "recursivo", em termos de código, podemos repetir os cálculos
-- Refatoramos of código para que a função `lighting` retorne também a nova origem e direção do raio refletido
+- Refatoramos o código para que a função `lighting` retorne também a nova origem e direção do raio refletido
+:::
+:::col ratio=65%
+```glsl
+vec3 lighting (vec3 eye, inout vec3 p, 
+               out vec3 R) {
+    vec3 n = normal(p);
+    vec3 l = normalize(lightPos - p);
+    vec3 e = normalize(eye - p);
+    vec3 matColor = sceneMat(p);
+    vec3 ia = matAmb * lightColor * matColor;
+    vec3 id = matDiff * max(0.,dot(l, n)) * 
+      lightColor * matColor;
+    vec3 r = reflect(-l,n);
+    vec3 is = matSpec * pow(max(0., dot(e,r)),matShine) * lightColor;
+    R = reflect(-e,n); // Bounce direction
+    p += n*5.*EPSILON;  // Bounce point
+    return (ia+id+is);
+}
+```
+:::
+---
+# Reflexão "recursiva" (2)
+:::col ratio=40%
+- Encapsulamos o código para obter a cor a partir de um raio em uma função separada `render()`
+  - Além de retornar a cor, retorna também
+   - O raio refletido (nova posição e direção)
+   - Uma fração para misturar a cor vista a partir do raio 
+   refletido
+:::
+:::col ratio=60%
+```glsl
+vec3 render (inout vec3 eye, inout vec3 dir, 
+             out float delta) {
+  float dist = rayMarch(eye, dir);
+  if (dist > MAX_DIST-EPSILON) {
+     delta = 0.;
+     return textureCube(uCubemap, dir*vec3(-1,1,1)).rgb; 
+  }
+  vec3 p = eye+dist*dir;
+  vec3 R;
+  vec3 color = lighting(eye, p, dir);
+  eye = p; 
+  delta = 0.8;
+  return color;
+}
+```
+:::
+---
+# Reflexão "recursiva" (3)
+:::col ratio=60%
+- `render()` é chamada múltiplas vezes para simular reflexões múltiplas
+```glsl
+void main( ) {
+  vec3 eye = getEye();
+  vec3 dir = rayDirection(eye, gl_FragCoord.xy);
+  float delta;
+  float alpha = 1.;
+  vec3 color = render(eye,dir, delta);
+  // bounces
+  for (int i = 0; i < 5; i++) {
+    alpha *=delta;
+    color = mix(color,
+        render(eye,dir,delta),alpha);
+  }
+  gl_FragColor = vec4(color, 1.);
+}
+```
 :::
 :::col ratio=40%
 ::img src=raymarching_cubemap_r_reflect.png height=70%
 [link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_cubemap_r_reflect.zip)
+:::
+---
+# Refração (1)
+- A ideia é similar, mas agora o raio pode penetrar no objeto e precisamos levar levar em conta múltiplos "bounces" 
+::img src=refracao.svg height=70%
+---
+# Refração (2)
+:::col ratio=60%
+- A função `refract(in, out, refr)` faz um papel semelhante ao `reflect()`
+- Usa-se `refr` maior que 1 para um raio que sai do objeto, e menor que 1 para um raio que entra
+- `refract()` pode retornar um vetor nulo caso ocorra reflexão total interna
+- Um raio que caminha dentro do objeto deve considerar
+  - A normal com sentido invertido
+  - A SDF com sinal trocado: dentro é positivo e fora é negativo
+:::
+:::col ratio=40%
+::img src=raymarching_cubemap_r_refract.png height=70%
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F11+-+Ray+Marching%2Fraymarching_cubemap_arcball_r_refract.zip)
 :::
 ---
 # Interação com arcball
