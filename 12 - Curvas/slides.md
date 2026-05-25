@@ -187,23 +187,18 @@ $$
 - As quatro funções têm suporte global em $[0,1]$, mas com papéis claramente separados
 ---
 # Forma matricial
+:::col
 - A curva de Hermite pode ser escrita compactamente como $\mathbf{C}(t) = \mathbf{B}(t)\,\mathbf{M}_H\,\mathbf{G}_H$, onde
   - $\mathbf{B}(t) = [t^3,\; t^2,\; t,\; 1]$
-  - $\mathbf{G}_H = [\mathbf{P}_0,\; \mathbf{P}_1,\; \mathbf{T}_0,\; \mathbf{T}_1]^T$ é o vetor de geometria
-  - $\mathbf{M}_H$ é a **matriz de Hermite**:
-
-$$
-\mathbf{M}_H =
-\begin{bmatrix}
- 2 & -2 &  1 &  1 \\
--3 &  3 & -2 & -1 \\
- 0 &  0 &  1 &  0 \\
- 1 &  0 &  0 &  0
-\end{bmatrix}
-$$
-
-- A matriz $\mathbf{M}_H$ é invertível: dado qualquer polinômio cúbico, é possível encontrar os parâmetros de Hermite equivalentes
+  - $\mathbf{G}_H = [\mathbf{P}_0,\; \mathbf{P}_1,\; \mathbf{T}_0,\; \mathbf{T}_1]^T$ 
+  - $\mathbf{M}_H = \begin{bmatrix}  2 & -2 &  1 &  1 \\ -3 &  3 & -2 & -1 \\  0 &  0 &  1 &  0 \\ 1 &  0 &  0 &  0 \end{bmatrix}$
+:::
+:::col
+- $\mathbf{G}_H$ é o vetor de geometria
+- A matriz $\mathbf{M}_H$ é a matriz de Hermite
+  - Invertível: dado qualquer polinômio cúbico, é possível encontrar os parâmetros de Hermite equivalentes
 - A mesma estrutura se aplica a dimensões maiores: basta aplicar a fórmula coordenada a coordenada
+:::
 ---
 # Relação com Bézier
 - As curvas de Bézier cúbicas e as de Hermite são **representações diferentes do mesmo espaço** de polinômios cúbicos
@@ -353,12 +348,9 @@ onde $t_i$ é o nó correspondente ao ponto de controle $P_i$ e $d$ é o grau da
 # Splines de Catmull-Rom
 :::col width=60%
 - Motivação: queremos uma curva suave que **interpole** os pontos de controle
-  - B-splines aproximam, mas não interpolam
 - As splines de Catmull-Rom são splines cúbicas interpolantes desenvolvidas por Edwin Catmull e Raphael Rom (1974)
 - São um caso especial das **splines de Hermite cúbicas** com tangentes estimadas automaticamente a partir dos vizinhos:
-$$
-\mathbf{T}_i = \frac{\mathbf{P}_{i+1} - \mathbf{P}_{i-1}}{2}
-$$
+$\mathbf{T}_i = \frac{\mathbf{P}_{i+1} - \mathbf{P}_{i-1}}{2}$
 - Suporte local: cada segmento depende de apenas 4 pontos consecutivos
 - Continuidade $C^1$
 :::
@@ -369,37 +361,28 @@ $$
 ---
 # Forma matricial das Splines de Catmull-Rom
 - O trecho entre $\mathbf{P}_i$ e $\mathbf{P}_{i+1}$, dados os vizinhos $\mathbf{P}_{i-1}$ e $\mathbf{P}_{i+2}$, é:
-$$
-\mathbf{C}(t) = \mathbf{B}(t)\, \mathbf{M}_{CR}\, [\mathbf{P}_{i-1},\; \mathbf{P}_i,\; \mathbf{P}_{i+1},\; \mathbf{P}_{i+2}]^T, \quad t \in [0,1]
-$$
-onde $\mathbf{B}(t) = [t^3, t^2, t, 1]$ e
-$$
-\mathbf{M}_{CR} = \frac{1}{2}
-\begin{bmatrix}
--1 &  3 & -3 &  1 \\
- 2 & -5 &  4 & -1 \\
--1 &  0 &  1 &  0 \\
- 0 &  2 &  0 &  0
-\end{bmatrix}
-$$
+$\mathbf{C}(t) = \mathbf{B}(t)\, \mathbf{M}_{CR}\, [\mathbf{P}_{i-1},\; \mathbf{P}_i,\; \mathbf{P}_{i+1},\; \mathbf{P}_{i+2}]^T, \quad t \in [0,1]$
+onde 
+$\mathbf{B}(t) = [t^3, t^2, t, 1]$ e
+$\mathbf{M}_{CR} = \frac{1}{2}\begin{bmatrix}-1 &  3 & -3 &  1 \\ 2 & -5 &  4 & -1 \\-1 &  0 &  1 &  0 \\ 0 &  2 &  0 &  0\end{bmatrix}$
 - $t=0$ corresponde a $\mathbf{P}_i$ e $t=1$ a $\mathbf{P}_{i+1}$
 - **Nós extremos** (sem $\mathbf{P}_{-1}$ ou $\mathbf{P}_{n+1}$): a solução mais simples é repetir o primeiro e o último ponto como pontos fantasmas
 - Para curvas fechadas, repete-se os nós iniciais no final ou os nós finais no início
 ---
 # Parâmetro de tensão
-:::col width=60%
-- A fórmula original de Catmull-Rom usa o fator $\tfrac{1}{2}$ na tangente:
-$$
-\mathbf{T}_i = \frac{\mathbf{P}_{i+1} - \mathbf{P}_{i-1}}{2}
-$$
+- A fórmula original de Catmull-Rom usa o fator $\tfrac{1}{2}$ na tangente: $\mathbf{T}_i = \frac{\mathbf{P}_{i+1} - \mathbf{P}_{i-1}}{2}$
 - Generalizando, introduz-se o **parâmetro de tensão** $\tau \in [0,1]$:
 $$
 \mathbf{T}_i = (1-\tau)\,\frac{\mathbf{P}_{i+1} - \mathbf{P}_{i-1}}{2}
 $$
-- $\tau = 0$: Catmull-Rom original (tensão nula, curva mais solta)
+- $\tau = 0$: Catmull-Rom original 
 - $\tau = 1$: tangentes nulas em todos os pontos — curva degenera em segmentos de reta ($C^0$)
+---
+# Forma matricial
+:::col width=60%
 - A matriz de base parametrizada por $\tau$ é:
 $$
+\tiny
 \mathbf{M}_{CR}(\tau) = \frac{1-\tau}{2}
 \begin{bmatrix}
 -1 &  3 & -3 &  1 \\
@@ -430,10 +413,6 @@ $$
   - Resultado visual geralmente mais natural
 - A variante **cordal** usa $\Delta t_i = \|\mathbf{P}_{i+1} - \mathbf{P}_i\|$
   - Mais fácil de calcular, mas pode produzir arcos indesejados
-- Comparação com B-splines:
-  - Catmull-Rom **interpola** os pontos (B-spline apenas aproxima)
-  - Catmull-Rom tem $C^1$ (B-spline cúbica tem $C^2$)
-  - Catmull-Rom é mais simples de usar para trajetórias e animação
 :::
 :::col width=40%
 ::img src=catmull_rom.png height=80%
@@ -451,22 +430,22 @@ $$
 - O tipo de curva limite depende da **regra de subdivisão** escolhida
 ---
 # Algoritmo de Chaikin
-:::col width=60%
+:::col
 - Proposto por George Chaikin (1974) como **corte de cantos** (_corner cutting_)
 - A cada iteração, cada aresta $(\mathbf{P}_i, \mathbf{P}_{i+1})$ gera dois novos pontos a $\tfrac{1}{4}$ e $\tfrac{3}{4}$ da aresta:
 $$
-\mathbf{Q}_i = \tfrac{3}{4}\mathbf{P}_i + \tfrac{1}{4}\mathbf{P}_{i+1}, \qquad
+\small
+\mathbf{Q}_i = \tfrac{3}{4}\mathbf{P}_i + \tfrac{1}{4}\mathbf{P}_{i+1}, \\
+~\\
 \mathbf{R}_i = \tfrac{1}{4}\mathbf{P}_i + \tfrac{3}{4}\mathbf{P}_{i+1}
 $$
+:::
+:::col
 - Os vértices originais são descartados
 - Aplicado repetidamente, o polígono converge para uma **B-spline quadrática uniforme**
   - Continuidade $C^1$
   - A curva está dentro do fecho convexo do polígono de controle
 - Funciona igualmente para polígonos abertos e fechados
-:::
-:::col width=40%
-::img src=chaikin.png height=80%
-[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F12+-+Curvas%2Fchaikin_subdivision.py)
 :::
 ---
 # Generalização: Lane-Riesenfeld
@@ -474,86 +453,11 @@ $$
 - Lane e Riesenfeld (1980) generalizaram o algoritmo de Chaikin para produzir B-splines de **grau $d$ arbitrário**
 - Cada iteração tem dois passos:
   1. **Refinamento**: inserir o ponto médio entre cada par consecutivo (dobra o número de pontos)
-  $$\mathbf{P}^{\text{novo}}_{2i} = \mathbf{P}_i, \quad \mathbf{P}^{\text{novo}}_{2i+1} = \tfrac{1}{2}(\mathbf{P}_i + \mathbf{P}_{i+1})$$
+  $  \mathbf{P}^{\text{novo}}_{2i} = \mathbf{P}_i, \quad \mathbf{P}^{\text{novo}}_{2i+1} = \tfrac{1}{2}(\mathbf{P}_i + \mathbf{P}_{i+1})$
   2. **Suavização**: aplicar $d-1$ rodadas consecutivas de médias de pares adjacentes:
-  $$\mathbf{P}_i \leftarrow \tfrac{1}{2}(\mathbf{P}_i + \mathbf{P}_{i+1})$$
-
-| Grau $d$ | Curva limite | Continuidade |
-|---|---|---|
-| 2 | Quadrática (= Chaikin) | $C^1$ |
-| 3 | Cúbica | $C^2$ |
-| 4 | Quártica | $C^3$ |
+  $  \mathbf{P}_i \leftarrow \tfrac{1}{2}(\mathbf{P}_i + \mathbf{P}_{i+1})$
 :::
 :::col width=40%
 ::img src=lane_riesenfeld.png height=80%
-[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F12+-+Curvas%2Fchaikin_subdivision.py)
-:::
----
-# Curvas Implícitas
-- Uma curva implícita é o **conjunto de zeros** de uma função escalar $f: \mathbb{R}^2 \to \mathbb{R}$:
-$$
-\mathcal{C} = \{\, (x,y) \in \mathbb{R}^2 \mid f(x,y) = 0 \,\}
-$$
-- Exemplos clássicos:
-  - Círculo: $f(x,y) = x^2 + y^2 - r^2$
-  - Elipse: $f(x,y) = x^2/a^2 + y^2/b^2 - 1$
-  - Folha de Descartes: $f(x,y) = x^3 + y^3 - 3axy$
-- **Vantagens** sobre curvas paramétricas:
-  - Representação natural de topologias complexas (ilhas, buracos, auto-interseções)
-  - Teste de pertencimento trivial: $f(x,y) < 0$ (interior), $f(x,y) > 0$ (exterior)
-  - Operações booleanas via $\min/\max$: união $\min(f,g)=0$, interseção $\max(f,g)=0$
-- **Desafio**: renderização requer algoritmos específicos (não há parametrização explícita)
----
-# Renderização: Quadrados Marchantes
-:::col width=60%
-- O algoritmo de _Marching Squares_ extrai a isocurva $f=0$ de uma grade regular:
-  1. Avaliar $f$ em todos os vértices da grade
-  2. Para cada célula quadrada, identificar quais arestas são cruzadas pela isocurva — detectado por **mudança de sinal** de $f$ nos extremos da aresta
-  3. Estimar o ponto de cruzamento por **interpolação linear**:
-  $$t = \frac{f(A)}{f(A)-f(B)}, \quad \mathbf{X} = \mathbf{A} + t(\mathbf{B}-\mathbf{A})$$
-  4. Conectar os pontos de cruzamento dentro de cada célula
-- Há $2^4 = 16$ configurações de sinal por célula (reduzidas a 4 por simetria)
-- Ambiguidades nas configurações de "sela" podem gerar inconsistências topológicas
-:::
-:::col width=40%
-::img src=marching_squares.png height=80%
-:::
----
-# Funções de Base Radial (RBF)
-:::col width=60%
-- Uma Função de Base Radial (RBF) define $f$ como combinação de funções de distância:
-$$
-f(\mathbf{x}) = \sum_{i=1}^{n} \lambda_i\; \varphi(\|\mathbf{x} - \mathbf{c}_i\|)
-$$
-onde $\mathbf{c}_i$ são os **centros**, $\lambda_i$ os pesos e $\varphi: \mathbb{R}_{\ge 0}\to\mathbb{R}$ a função radial
-- Funções $\varphi$ comuns:
-
-| Nome | $\varphi(r)$ |
-|---|---|
-| Biharmonica | $r$ |
-| Placa fina | $r^2 \ln r$ |
-| Multiquádrica | $\sqrt{r^2+\varepsilon^2}$ |
-| Gaussiana | $e^{-\varepsilon^2 r^2}$ |
-
-- A função $f$ é globalmente suave e pode representar curvas de topologia arbitrária
-:::
-:::col width=40%
-::img src=rbf_curve.png height=80%
-[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F12+-+Curvas%2Frbf_implicit.zip)
-:::
----
-# Construção de Curvas Implícitas via RBF
-:::col width=60%
-- Para construir uma curva que passe por pontos dados $\{\mathbf{q}_j\}$:
-  1. **Pontos sobre a curva**: impor $f(\mathbf{q}_j) = 0$
-  2. **Pontos fora da curva**: deslocar $\mathbf{q}_j$ ao longo da normal estimada $\hat{\mathbf{n}}_j$ por um offset $\varepsilon$:
-$$f(\mathbf{q}_j + \varepsilon\hat{\mathbf{n}}_j) = +1, \quad f(\mathbf{q}_j - \varepsilon\hat{\mathbf{n}}_j) = -1$$
-  3. **Resolver o sistema linear** $\mathbf{\Phi}\,\boldsymbol{\lambda} = \mathbf{d}$, onde $\Phi_{ij} = \varphi(\|\mathbf{c}_i - \mathbf{c}_j\|)$
-  4. **Renderizar** avaliando $f$ em uma grade e extraindo a isocurva $f=0$ via _marching squares_
-- A normal estimada no ponto $\mathbf{q}_i$ pode ser obtida como a perpendicular ao segmento $\mathbf{q}_{i-1}\mathbf{q}_{i+1}$
-- A regularização $\mathbf{\Phi} + \mu \mathbf{I}$ melhora a estabilidade numérica
-:::
-:::col width=40%
-::img src=rbf_curve.png height=80%
-[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F12+-+Curvas%2Frbf_implicit.zip)
+[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F12+-+Curvas%2Fsubdivision_curves.zip)
 :::
