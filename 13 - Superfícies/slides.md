@@ -294,7 +294,7 @@ $$
 - Grau $d=2$ → B-spline biquadrática; $d=3$ → bicúbica (a mesma do refinamento B-spline visto antes)
 :::
 :::col width=40%
-::img src=subdivision_surfaces.png height=75%
+::img src=lr_surface.png height=75%
 [link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F13+-+Superf%C3%ADcies%2Fsubdivision_surfaces.zip)
 :::
 ---
@@ -309,7 +309,7 @@ $$
 - Os pontos originais são **mantidos** (interpolação); $w \approx \tfrac{1}{16}$ controla a tensão
 :::
 :::col width=40%
-::img src=subdivision_surfaces.png height=75%
+::img src=4p_surface.png height=75%
 [link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F13+-+Superf%C3%ADcies%2Fsubdivision_surfaces.zip)
 :::
 ---
