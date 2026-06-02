@@ -53,6 +53,10 @@
         {
             "folder": "12 - Curvas",
             "title": "Modelagem geométrica - Curvas"
+        },
+        {
+            "folder": "13 - Superfícies",
+            "title": "Modelagem geométrica - Superfícies"
         }
     ]
 }
