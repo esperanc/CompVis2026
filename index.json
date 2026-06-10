@@ -57,6 +57,14 @@
         {
             "folder": "13 - Superfícies",
             "title": "Modelagem geométrica - Superfícies"
+        },
+        {
+            "folder": "14 - Malhas",
+            "title": "Modelagem geométrica - Malhas"
+        },
+        {
+            "folder": "15 - Processamento de Imagem",
+            "title": "Processamento de Imagem"
         }
     ]
 }
