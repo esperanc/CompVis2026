@@ -95,10 +95,12 @@ $$
 - Variante onde cada cubo é subdividido em 6 tetraedros
 - Cada tetraedro é poligonizado de forma exata e **sem ambiguidade**
 - O padrão dos 4 sinais nos cantos seleciona a triangulação, reduzido por simetria a **5 casos**
+- É possível usar outros arranjos de tetraedros com melhor razão de aspecto
+[demo](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F14+-+Malhas%2Ftetrahedral_tiling.zip)
 :::
 :::col width=50%
 ::img src=marching_tetrahedra.png height=75%
-[link](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F14+-+Malhas%2Fmarching_cubes.zip)
+[demo](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F14+-+Malhas%2Fmarching_cubes.zip)
 :::
 ---
 # Malhas quadrangulares
