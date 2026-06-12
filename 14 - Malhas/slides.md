@@ -314,14 +314,6 @@ $\mathbf{v'} = \frac{\mathbf{F} + 2\mathbf{R} + (n-3)\,\mathbf{v}}{n}$
 :::
 - Facetado (normal por face) · suave demais (tudo mediado) · **auto-smooth** (cantos preservados)
 ---
-# Resumo
-- **Modelagem por fronteira (B-Rep)**: o objeto é a superfície que o delimita; **malhas poligonais** são a representação dominante
-- **Topologia**: a fórmula de **Euler-Poincaré** ($V-E+F=2-2G$) caracteriza malhas fechadas
-- **Geração**: scan, fotogrametria, **Marching Cubes**, **varredura** (extrusão / revolução / lofting)
-- **Estruturas de dados**: tabelas de vértices/faces (simples) vs. **half-edge** (consultas de topologia em tempo proporcional ao grau)
-- **Subdivisão** sobre malhas arbitrárias (precisa da half-edge): **Catmull-Clark**, **Doo-Sabin**, **Loop** — refinar + reposicionar por médias locais
-- **Sombreamento e _rendering_**: normais por vértice (**auto-smooth**), e _buffers_ indexados (`drawElements`) no WebGL
----
 :::center
 # Obrigado!
 :::
