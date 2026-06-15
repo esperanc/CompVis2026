@@ -293,12 +293,48 @@ $$
 G_x=\begin{bmatrix}-1&0&1\\-2&0&2\\-1&0&1\end{bmatrix}\quad
 |\nabla f| = \sqrt{G_x^2 + G_y^2}
 $$
-- **Canny**: gradiente + supressão de não-máximos + histerese → bordas finas e conectadas
+- Sobel sozinho dá bordas **grossas e ruidosas** → o detector de **Canny** as refina (próximo slide)
 :::
 :::col width=48%
 ::img src=edges.png height=42%
-[demo](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F15+-+Processamento+de+Imagem%2Fedge_detection.zip)
 :::
+---
+# O detector de Canny
+:::col width=50%
+Considerado o detector de bordas "ótimo" (Canny, 1986). Cinco passos:
+1. **Suavização gaussiana** — reduz o ruído que o gradiente amplificaria; o $\sigma$ define a **escala** das bordas
+2. **Gradiente** — magnitude $|\nabla f|$ e **direção** $\theta=\operatorname{atan2}(G_y,G_x)$ (via Sobel)
+3. **Supressão de não-máximos** — mantém o pixel só se for **máximo local** da magnitude **na direção do gradiente** → bordas de **1 pixel**
+:::
+:::col width=50%
+4. **Duplo limiar** — $T_{baixo} < T_{alto}$: acima de $T_{alto}$ = borda **forte**; entre os dois = **fraca**; abaixo = descartada
+5. **Histerese** — uma borda **fraca** só é mantida se estiver **conectada** a uma borda forte (segue-se a cadeia) → remove ruído isolado, preserva contornos contínuos
+- Resultado: bordas **finas, conectadas e com poucos falsos positivos**
+:::
+::img src=canny_steps.png height=30%
+[demo](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F15+-+Processamento+de+Imagem%2Fimage_filters.zip)
+---
+# LoG e DoG
+:::col width=50%
+- **LoG — Laplaciano do Gaussiano** (Marr–Hildreth): suaviza com Gaussiano e aplica o **Laplaciano** (2ª derivada), num único núcleo
+$$
+\small
+\nabla^2 (G_\sigma * f) = (\nabla^2 G_\sigma) * f
+$$
+- Núcleo em **"chapéu mexicano"** (centro × entorno)
+- Bordas = **cruzamentos por zero** da resposta; $\sigma$ define a **escala**
+:::
+:::col width=50%
+- **DoG — Diferença de Gaussianas** *aproxima* o LoG subtraindo dois borramentos:
+$$
+\small
+\mathrm{DoG} = G_{\sigma_1} * f - G_{\sigma_2} * f, \quad \sigma_2 \approx 1.6\,\sigma_1
+$$
+- Justificativa: $\dfrac{\partial G}{\partial \sigma} \approx \sigma\,\nabla^2 G$ → a diferença de escalas próximas $\approx$ LoG
+- Mais **barato** (dois borrões separáveis + subtração) e reaproveitável numa **pirâmide de escalas**
+- É um **passa-banda**: base da detecção de **blobs** / **SIFT** e modelo **centro-entorno** da visão
+:::
+::img src=dog_log.png height=30%
 ---
 # O domínio da frequência
 :::col width=50%
@@ -309,7 +345,8 @@ $$
 - Calculada eficientemente com a **FFT**
 :::
 :::col width=50%
-::img src=fourier.png height=42%
+::img src=fourier_demo.png height=42%
+[demo](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F15+-+Processamento+de+Imagem%2Ffourier.zip)
 :::
 ---
 # Filtragem no domínio da frequência
@@ -324,8 +361,8 @@ $$
 - Filtros grandes ficam **mais baratos** via FFT
 :::
 :::col width=45%
-::img src=fourier.png height=42%
-[demo](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F15+-+Processamento+de+Imagem%2Ffourier.zip)
+::img src=fourier_filter.png height=42%
+[demo](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F15+-+Processamento+de+Imagem%2Ffourier_filter.zip)
 :::
 ---
 # Ruído e filtros não-lineares
@@ -339,7 +376,7 @@ $$
 :::
 :::col width=48%
 ::img src=noise_filters.png height=42%
-[demo](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F15+-+Processamento+de+Imagem%2Fnoise.zip)
+[demo](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F15+-+Processamento+de+Imagem%2Fnonlinear_filters.zip)
 :::
 ---
 # Limiarização (thresholding)
@@ -358,19 +395,13 @@ $$
 :::
 ---
 # Operações morfológicas
-:::col width=55%
+:::col width=50%
 - Atuam na **forma** de regiões em imagens binárias, usando um **elemento estruturante** $B$ (ex.: disco)
 - **Erosão** ($A \ominus B$): encolhe; remove saliências e ruído fino
 - **Dilatação** ($A \oplus B$): engorda; preenche buracos e conecta partes
 - São duais entre si (uma no objeto = a outra no fundo)
 :::
-:::col width=45%
-::img src=morphology.png height=38%
-[demo](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F15+-+Processamento+de+Imagem%2Fmorphology.zip)
-:::
----
-# Abertura, fechamento e aplicações
-:::col width=55%
+:::col width=50%
 - **Abertura** $A \circ B = (A \ominus B) \oplus B$
   - remove pequenos objetos/ruído **sem** encolher o que sobra
 - **Fechamento** $A \bullet B = (A \oplus B) \ominus B$
@@ -378,9 +409,8 @@ $$
 - **Gradiente morfológico** ($A\oplus B - A\ominus B$): extrai o **contorno**
 - Aplicações: limpeza de máscaras, contagem, esqueletização, pré-processamento de OCR
 :::
-:::col width=45%
-::img src=morphology.png height=38%
-:::
+::img src=morphology.png height=40%
+[demo](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F15+-+Processamento+de+Imagem%2Fmorphology.zip)
 ---
 # Segmentação
 :::col width=52%
