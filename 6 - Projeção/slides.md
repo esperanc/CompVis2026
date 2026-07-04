@@ -435,5 +435,5 @@ Esse é o motivo de incluirmos o parâmetro $near$ e $far$ na função `perspect
 - Vão dar origem aos valores $A$ e $B$ na linha 3 da matriz
 ---
 :::center
-#Obrigado!
+# Obrigado!
 :::

@@ -36,7 +36,7 @@ Sensação provocada pela luz (fenômeno psico-físico)
 - Ex: modelo de Phong
 :::
 :::col
-::img src="ilum local.svg" height=85%
+::img src="Ilum local.svg" height=85%
 :::
 ---
 # Modelos globais
@@ -48,7 +48,7 @@ Sensação provocada pela luz (fenômeno psico-físico)
 - Ex.: Ray tracing, Photon mapping
 :::
 :::col
-::img src="ilum global.svg" height=85%
+::img src="Ilum global.svg" height=85%
 :::
 ---
 # Cálculo por vértice / fragmento
