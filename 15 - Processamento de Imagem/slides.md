@@ -248,7 +248,7 @@ $$
 :::
 :::col width=50%
 ::img src=convolution_diagram.png height=60%
-[demo](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F15+-+Processamento+de+Imagem%2Fconvolution.zip)
+[demo](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F15+-+Processamento+de+Imagem%2Fimage_convolution.zip)
 :::
 ---
 # Suavização (smoothing)
@@ -424,7 +424,6 @@ $$
 :::
 :::col width=48%
 ::img src=segmentation.png height=42%
-[demo](https://esperanc.github.io/Py5Script/ide.html?sketch=https%3A%2F%2Fesperanc.github.io%2FCompVis2026%2F15+-+Processamento+de+Imagem%2Fsegmentation.zip)
 :::
 ---
 # Segmentação: regiões e componentes conexas
